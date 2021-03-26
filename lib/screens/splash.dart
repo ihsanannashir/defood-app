@@ -71,14 +71,14 @@ class _SplashScreenState extends State<SplashScreen>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   new Icon(
-                    Icons.icecream,
+                    Icons.directions_bike,
                     size: MediaQuery.of(context).size.width / 3,
                     color: Colors.blue,
                   ),
                   new Material(
                       color: Colors.transparent,
                       child: Center(
-                          child: Text('CreatIce',
+                          child: Text('AppName',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24.0,

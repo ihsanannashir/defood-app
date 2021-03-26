@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "870935852247",
+    "project_id": "raionkel5",
+    "storage_bucket": "raionkel5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870935852247:android:23a6e6a38596de72d1ec92",
+        "android_client_info": {
+          "package_name": "com.example.creatice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870935852247-6kcui5bil7fiu7bl720f6cuu88j7shja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA42UXmkidFy7y5FKACgSRIG7ACWkJQgUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870935852247-6kcui5bil7fiu7bl720f6cuu88j7shja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

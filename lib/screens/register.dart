@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import './register.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
+  final String title = 'Registration';
   @override
-  State<StatefulWidget> createState() => _LoginPageState();
+  State<StatefulWidget> createState() => 
+      _RegisterEmailSectionState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterEmailSectionState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -21,18 +22,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text(widget.title),
       ),
       body: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              child: const Text('Sign In'),
-              padding: const EdgeInsets.all(16),
-              alignment: Alignment.center,
-            ),
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'Email'),
@@ -45,7 +41,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextFormField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 
+                  'Password'),
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -59,49 +56,33 @@ class _LoginPageState extends State<LoginPage> {
               child: RaisedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    _signInWithEmailAndPassword();
+                    _register();
                   }
                 },
-                child: const Text('MASUK'),
+                child: const Text('Submit'),
               ),
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                _success == null
-                    ? ''
-                    : (_success
-                    ? 'Successfully signed in ' + _userEmail
-                    : 'Sign in failed'),
-                style: TextStyle(color: Colors.red),
-              ),
+              child: Text(_success == null
+                  ? ''
+                  : (_success
+                      ? 'Successfully registered ' + _userEmail
+                      : 'Registration failed')),
             ),
-            TextButton(
-                     onPressed: () {
-                      navigateToRegister(context);
-                    },
-                    child: Text("Belum punya akun? Daftar")
-           ),
           ],
         ),
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _signInWithEmailAndPassword() async {
-    final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    )).user;
-    
+  void _register() async {
+    final FirebaseUser user = (await 
+        _auth.createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        )
+    ).user;
     if (user != null) {
       setState(() {
         _success = true;
@@ -109,12 +90,8 @@ class _LoginPageState extends State<LoginPage> {
       });
     } else {
       setState(() {
-        _success = false;
+        _success = true;
       });
     }
-  }
-
-  Future navigateToRegister(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 }

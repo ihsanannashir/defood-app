@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:creatice/screens/screencontrol.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:lottie/lottie.dart';
@@ -25,21 +26,20 @@ class _OnBoardState extends State<OnBoard> {
       alignment: Alignment.center,
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(color: Color(0xFFFF7B96)),
+      decoration: BoxDecoration(color: Color(0xFFBD452C)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 5),
-            child: Image.asset('assets/images/hi.png',
-                width: 200, fit: BoxFit.fill),
-          ),
           Text(
             "Welcome to AppName!",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontFamily: 'FrankRuhlLibre',
-                fontWeight: FontWeight.w700,
-                fontSize: 24),
+              fontFamily: 'FrankRuhlLibre',
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              color: Colors.white,
+            ),
           ),
           Text(
             "We are here to help you to \norder food without having to\npay a lot of money",
@@ -47,6 +47,7 @@ class _OnBoardState extends State<OnBoard> {
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 14,
+              color: Colors.white,
             ),
           )
         ],
@@ -56,21 +57,20 @@ class _OnBoardState extends State<OnBoard> {
       alignment: Alignment.center,
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(color: Color(0xFFFFA27B)),
+      decoration: BoxDecoration(color: Colors.grey.shade200),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 60, 0, 5),
-            child: Image.asset('assets/images/happy.png',
-                width: 180, fit: BoxFit.fill),
-          ),
           Text(
             "Hmm...?",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontFamily: 'FrankRuhlLibre',
-                fontWeight: FontWeight.w700,
-                fontSize: 24),
+              fontFamily: 'FrankRuhlLibre',
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              color: Color(0xFFBD452C),
+            ),
           ),
           Text(
             "Having a hard time choosing food?\nCheck our recommendation menu\nand order for later",
@@ -78,30 +78,29 @@ class _OnBoardState extends State<OnBoard> {
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 14,
+              color: Color(0xFFBD452C),
             ),
           )
         ],
       ),
     ),
     Container(
+      alignment: Alignment.center,
       height: double.infinity,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(0, 70, 0, 0),
-      decoration: BoxDecoration(color: Color(0xFFFFE47B)),
+      decoration: BoxDecoration(color: Color(0xFFBD452C)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Image.asset('assets/images/yay.png',
-                width: 235, fit: BoxFit.fill),
-          ),
           Text(
             "Don't worry and be FULL!",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontFamily: 'FrankRuhlLibre',
                 fontWeight: FontWeight.w700,
-                fontSize: 24),
+                fontSize: 24,
+                color: Colors.white),
           ),
           Text(
             "With AppName, you can choose\nfrom variety of foods\nfrom sweets to salty to\ndelicious boba drinks, YUM!",
@@ -109,25 +108,7 @@ class _OnBoardState extends State<OnBoard> {
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 14,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(25.0, 157.5, 25.0, 25.0),
-              child: TextButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-                    ),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)))),
-                onPressed: () {},
-                child: Text("Go to app", style: TextStyle(color: Colors.black)),
-              ),
+              color: Colors.white,
             ),
           ),
         ],
@@ -200,9 +181,40 @@ class _OnBoardState extends State<OnBoard> {
               ),
             ),
           ),
+          if (page == pages.length - 1)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextButton(
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ScreenControlPage()));
+                  },
+                  child:
+                      Text("Go to app", style: TextStyle(color: Colors.black)),
+                ),
+              ),
+            ),
         ],
       ),
     );
+  }
+
+  Future navigateToLogin(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ScreenControlPage()));
   }
 
   pageChangeCallback(int lpage) {

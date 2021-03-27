@@ -9,10 +9,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Raion Kelompok 5',
-      // home: Scaffold(
-      //   appBar: AppBar(title: const Text(_title)),
-      //   body: MyStatelessWidget(),
-      // )
       home: SplashScreen(),
     );
   }

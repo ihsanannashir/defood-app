@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import './home.dart';
+import './login.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key, this.title}) : super(key: key);
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
               );
             },
             pageBuilder: (context, animation, animationTime) {
-              return HomePage();
+              return LoginPage();
             }));
   }
 

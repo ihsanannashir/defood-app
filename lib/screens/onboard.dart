@@ -29,9 +29,9 @@ class _OnBoardState extends State<OnBoard> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 180, 35, 40),
-            child: Lottie.asset('assets/animations/onboard1.json',
-                width: 2000, fit: BoxFit.fill),
+            padding: EdgeInsets.fromLTRB(0, 50, 0, 5),
+            child: Image.asset('assets/images/hi.png',
+                width: 200, fit: BoxFit.fill),
           ),
           Text(
             "Welcome to AppName!",
@@ -60,9 +60,9 @@ class _OnBoardState extends State<OnBoard> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 130, 35, 40),
-            child: Lottie.asset('assets/animations/onboard2.json',
-                width: 250, fit: BoxFit.fill),
+            padding: EdgeInsets.fromLTRB(0, 60, 0, 5),
+            child: Image.asset('assets/images/happy.png',
+                width: 180, fit: BoxFit.fill),
           ),
           Text(
             "Hmm...?",
@@ -86,14 +86,14 @@ class _OnBoardState extends State<OnBoard> {
     Container(
       height: double.infinity,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(0, 70, 0, 20),
+      padding: EdgeInsets.fromLTRB(0, 70, 0, 0),
       decoration: BoxDecoration(color: Color(0xFFFFE47B)),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 130, 0, 20),
-            child: Lottie.asset('assets/animations/onboard3.json',
-                width: 200, fit: BoxFit.fill),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Image.asset('assets/images/yay.png',
+                width: 235, fit: BoxFit.fill),
           ),
           Text(
             "Don't worry and be FULL!",
@@ -110,7 +110,26 @@ class _OnBoardState extends State<OnBoard> {
               fontFamily: 'OpenSans',
               fontSize: 14,
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(25.0, 157.5, 25.0, 25.0),
+              child: TextButton(
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                    ),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)))),
+                onPressed: () {},
+                child: Text("Go to app", style: TextStyle(color: Colors.black)),
+              ),
+            ),
+          ),
         ],
       ),
     ),
@@ -145,9 +164,11 @@ class _OnBoardState extends State<OnBoard> {
       body: Stack(
         children: <Widget>[
           LiquidSwipe(
+            enableLoop: false,
             pages: pages,
             positionSlideIcon: 0.8,
-            slideIconWidget: Icon(Icons.arrow_back_ios),
+            slideIconWidget:
+                page != pages.length - 1 ? Icon(Icons.arrow_back_ios) : null,
             onPageChangeCallback: pageChangeCallback,
             waveType: WaveType.liquidReveal,
             liquidController: liquidController,
@@ -166,7 +187,7 @@ class _OnBoardState extends State<OnBoard> {
             ),
           ),
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomLeft,
             child: Padding(
               padding: const EdgeInsets.all(25.0),
               child: TextButton(
@@ -179,21 +200,6 @@ class _OnBoardState extends State<OnBoard> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: TextButton(
-                onPressed: () {
-                  liquidController.jumpToPage(
-                      page: liquidController.currentPage + 1 > pages.length - 1
-                          ? 0
-                          : liquidController.currentPage + 1);
-                },
-                child: Text("Next", style: TextStyle(color: Colors.white)),
-              ),
-            ),
-          )
         ],
       ),
     );

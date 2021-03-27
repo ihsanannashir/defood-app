@@ -58,6 +58,10 @@ flutter:
    - assets/animations/onboard1.json
    - assets/animations/onboard2.json
    - assets/animations/onboard3.json
+   - assets/images/angry.png
+   - assets/images/happy.png
+   - assets/images/hi.png
+   - assets/images/yay.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

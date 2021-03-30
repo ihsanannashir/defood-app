@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/splash.dart';
+import 'screens/login2.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Raion Kelompok 5',
-      home: SplashScreen(),
+      home: LoginPageDua(),
     );
   }
 }

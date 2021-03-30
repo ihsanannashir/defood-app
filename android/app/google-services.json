@@ -1,33 +1,57 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "421573179607",
     "project_id": "defood-8d2a3",
     "storage_bucket": "defood-8d2a3.appspot.com"
+=======
+    "project_number": "870935852247",
+    "project_id": "raionkel5",
+    "storage_bucket": "raionkel5.appspot.com"
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:421573179607:android:057cb0c13aba7eefe99892",
         "android_client_info": {
           "package_name": "com.example.defood"
+=======
+        "mobilesdk_app_id": "1:870935852247:android:23a6e6a38596de72d1ec92",
+        "android_client_info": {
+          "package_name": "com.example.creatice"
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
         }
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "421573179607-2ag2ibt2v6bsd36mradag3pmhaa2j6cs.apps.googleusercontent.com",
+=======
+          "client_id": "870935852247-6kcui5bil7fiu7bl720f6cuu88j7shja.apps.googleusercontent.com",
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
           "client_type": 3
         }
       ],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyDJPHIgwQKQ8JNYWiegzfd3kI9_wqAYtu4"
+=======
+          "current_key": "AIzaSyA42UXmkidFy7y5FKACgSRIG7ACWkJQgUg"
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+<<<<<<< HEAD
               "client_id": "421573179607-2ag2ibt2v6bsd36mradag3pmhaa2j6cs.apps.googleusercontent.com",
+=======
+              "client_id": "870935852247-6kcui5bil7fiu7bl720f6cuu88j7shja.apps.googleusercontent.com",
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
               "client_type": 3
             }
           ]

@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:defood/screens/pageview/akun.dart';
 import 'package:defood/screens/pageview/beranda.dart';
 import 'package:defood/screens/pageview/keranjang.dart';
+=======
+import 'package:creatice/screens/onboard.dart';
+import 'package:creatice/screens/pageview/akun.dart';
+import 'package:creatice/screens/pageview/beranda.dart';
+import 'package:creatice/screens/pageview/keranjang.dart';
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 import 'package:flutter/material.dart';
 
 class ScreenControlPage extends StatefulWidget {
@@ -12,12 +19,20 @@ class ScreenControlPage extends StatefulWidget {
 class _ScreenControlPageState extends State<ScreenControlPage> {
   //PageView
   int _page = 0;
+<<<<<<< HEAD
   PageController _pageController =
+=======
+
+  GlobalKey _bottomNavigationKey = GlobalKey();
+
+  final PageController controller =
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
       PageController(initialPage: 0, keepPage: true);
 
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     _pageController = PageController();
   }
 
@@ -27,6 +42,11 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
   }
 
   void onPageChanged(int index) {
+=======
+  }
+
+  void pageChanged(int index) {
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
     setState(() {
       _page = index;
     });
@@ -36,7 +56,11 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
     setState(
       () {
         _page = index;
+<<<<<<< HEAD
         _pageController.animateToPage(index,
+=======
+        controller.animateToPage(index,
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
             duration: Duration(milliseconds: 500), curve: Curves.linear);
       },
     );
@@ -60,7 +84,11 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
               color: Colors.white,
               onPressed: () {},
             ),
+<<<<<<< HEAD
             actions: <Widget>[
+=======
+            actions: [
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
               IconButton(
                 iconSize: 25,
                 icon: Icon(Icons.favorite_outline),
@@ -82,6 +110,7 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
             ],
             automaticallyImplyLeading: false),
         body: buildPageView(),
+<<<<<<< HEAD
         bottomNavigationBar: BottomNavyBar(
           iconSize: 26,
           backgroundColor: Color(0xFFBD452C),
@@ -112,6 +141,73 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
               activeColor: Colors.white,
               inactiveColor: Colors.white,
               textAlign: TextAlign.center,
+=======
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _page,
+          selectedItemColor: Colors.amber[800],
+          key: _bottomNavigationKey,
+          backgroundColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: RawMaterialButton(
+                onPressed: () {
+                  setState(() {
+                    _page = 0;
+                    bottomTapped(_page);
+                  });
+                  debugPrint(_page.toString());
+                },
+                elevation: 4.0,
+                fillColor: Colors.white,
+                child: Icon(
+                  Icons.home,
+                  size: 20.0,
+                ),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+              ),
+              label: "Beranda",
+            ),
+            BottomNavigationBarItem(
+              icon: RawMaterialButton(
+                onPressed: () {
+                  setState(() {
+                    _page = 1;
+                    bottomTapped(_page);
+                  });
+                  debugPrint(_page.toString());
+                },
+                elevation: 2.0,
+                fillColor: Colors.white,
+                child: Icon(
+                  Icons.shopping_cart,
+                  size: 20.0,
+                ),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+              ),
+              label: "Keranjang",
+            ),
+            BottomNavigationBarItem(
+              icon: RawMaterialButton(
+                onPressed: () {
+                  setState(() {
+                    _page = 2;
+                    bottomTapped(_page);
+                  });
+                  debugPrint(_page.toString());
+                },
+                elevation: 2.0,
+                fillColor: Colors.white,
+                child: Icon(
+                  Icons.person,
+                  size: 20.0,
+                ),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+              ),
+              label: "Akun",
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
             ),
           ],
         ),
@@ -121,9 +217,15 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
 
   Widget buildPageView() {
     return PageView(
+<<<<<<< HEAD
       controller: _pageController,
       onPageChanged: (index) {
         onPageChanged(index);
+=======
+      controller: controller,
+      onPageChanged: (index) {
+        pageChanged(index);
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
       },
       children: <Widget>[Beranda(), Keranjang(), Akun()],
     );

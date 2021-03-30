@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+name: defood
+description: A new Flutter project.
+=======
 name: creatice
 description: Raion Apps Kelompok 5
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -32,6 +37,17 @@ dependencies:
   liquid_swipe: ^2.0.1
   lottie: ^1.0.1
   carousel_slider: ^3.0.0
+<<<<<<< HEAD
+  bottom_navy_bar: ^5.6.0
+
+  # Firebase
+  firebase_auth: ^0.14.0+5
+  firebase_dynamic_links: ^0.5.1
+
+  # Shared preferences
+  shared_preferences: ^2.0.5
+
+=======
   # Firebase
   firebase_analytics: ^5.0.2
 
@@ -42,6 +58,7 @@ dependencies:
   shared_preferences: ^2.0.5
 
 
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -58,6 +75,30 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+<<<<<<< HEAD
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  assets:
+    - assets/images/line.jpg
+    - assets/animations/onboard1.json
+    - assets/animations/onboard2.json
+    - assets/animations/onboard3.json
+    - assets/images/angry.png
+    - assets/images/happy.png
+    - assets/images/hi.png
+    - assets/images/yay.png
+    - assets/images/food1.png
+    - assets/images/food2.png
+    - assets/images/food3.png
+    - assets/images/food4.png
+    - assets/images/food5.png
+    - assets/images/food6.png
+    - assets/images/food7.png
+    - assets/images/food8.png
+    - assets/images/food9.png
+=======
   assets:
   - assets/images/line.jpg
   - assets/animations/onboard1.json
@@ -72,6 +113,7 @@ flutter:
   - assets/images/food3.png
   - assets/images/food4.png
   - assets/images/food5.png
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

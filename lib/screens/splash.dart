@@ -1,5 +1,10 @@
 import 'dart:async';
+<<<<<<< HEAD
+import 'package:defood/screens/login.dart';
+import 'package:defood/screens/onboard.dart';
+=======
 import 'package:creatice/screens/onboard.dart';
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screencontrol.dart';
@@ -54,7 +59,11 @@ class _SplashScreenState extends State<SplashScreen>
             },
             pageBuilder: (context, animation, animationTime) {
               if (_seen) {
+<<<<<<< HEAD
+                return LoginPage();
+=======
                 return ScreenControlPage();
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
               } else {
                 prefs.setBool('seen', true);
                 return OnBoard();
@@ -94,6 +103,8 @@ class _SplashScreenState extends State<SplashScreen>
           ],
         ));
   }
+<<<<<<< HEAD
+=======
 
   // Widget containerAnimation() {
   //   return TweenAnimationBuilder(
@@ -137,4 +148,5 @@ class _SplashScreenState extends State<SplashScreen>
   //     },
   //   );
   // }
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 }

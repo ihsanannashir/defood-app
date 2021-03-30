@@ -11,7 +11,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+<<<<<<< HEAD
+	<string>defood</string>
+=======
 	<string>creatice</string>
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

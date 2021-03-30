@@ -1,7 +1,14 @@
+<<<<<<< HEAD
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:defood/screens/pageview/akun.dart';
+import 'package:defood/screens/pageview/beranda.dart';
+import 'package:defood/screens/pageview/keranjang.dart';
+=======
 import 'package:creatice/screens/onboard.dart';
 import 'package:creatice/screens/pageview/akun.dart';
 import 'package:creatice/screens/pageview/beranda.dart';
 import 'package:creatice/screens/pageview/keranjang.dart';
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 import 'package:flutter/material.dart';
 
 class ScreenControlPage extends StatefulWidget {
@@ -12,18 +19,34 @@ class ScreenControlPage extends StatefulWidget {
 class _ScreenControlPageState extends State<ScreenControlPage> {
   //PageView
   int _page = 0;
+<<<<<<< HEAD
+  PageController _pageController =
+=======
 
   GlobalKey _bottomNavigationKey = GlobalKey();
 
   final PageController controller =
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
       PageController(initialPage: 0, keepPage: true);
 
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
+    _pageController = PageController();
+  }
+
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void onPageChanged(int index) {
+=======
   }
 
   void pageChanged(int index) {
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
     setState(() {
       _page = index;
     });
@@ -33,7 +56,11 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
     setState(
       () {
         _page = index;
+<<<<<<< HEAD
+        _pageController.animateToPage(index,
+=======
         controller.animateToPage(index,
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
             duration: Duration(milliseconds: 500), curve: Curves.linear);
       },
     );
@@ -57,7 +84,11 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
               color: Colors.white,
               onPressed: () {},
             ),
+<<<<<<< HEAD
+            actions: <Widget>[
+=======
             actions: [
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
               IconButton(
                 iconSize: 25,
                 icon: Icon(Icons.favorite_outline),
@@ -79,6 +110,38 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
             ],
             automaticallyImplyLeading: false),
         body: buildPageView(),
+<<<<<<< HEAD
+        bottomNavigationBar: BottomNavyBar(
+          iconSize: 26,
+          backgroundColor: Color(0xFFBD452C),
+          containerHeight: MediaQuery.of(context).size.height / 15,
+          selectedIndex: _page,
+          onItemSelected: (index) {
+            setState(() => _page = index);
+            bottomTapped(index);
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              title: Text('Beranda'),
+              icon: Icon(Icons.home),
+              activeColor: Colors.white,
+              inactiveColor: Colors.white,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              title: Text('Keranjang'),
+              icon: Icon(Icons.shopping_cart),
+              activeColor: Colors.white,
+              inactiveColor: Colors.white,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              title: Text('Akun'),
+              icon: Icon(Icons.account_circle),
+              activeColor: Colors.white,
+              inactiveColor: Colors.white,
+              textAlign: TextAlign.center,
+=======
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _page,
           selectedItemColor: Colors.amber[800],
@@ -144,6 +207,7 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
                 shape: CircleBorder(),
               ),
               label: "Akun",
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
             ),
           ],
         ),
@@ -153,9 +217,15 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
 
   Widget buildPageView() {
     return PageView(
+<<<<<<< HEAD
+      controller: _pageController,
+      onPageChanged: (index) {
+        onPageChanged(index);
+=======
       controller: controller,
       onPageChanged: (index) {
         pageChanged(index);
+>>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
       },
       children: <Widget>[Beranda(), Keranjang(), Akun()],
     );

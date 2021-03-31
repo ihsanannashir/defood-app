@@ -16,33 +16,6 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
       PageController(initialPage: 0, keepPage: true);
 
   @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void onPageChanged(int index) {
-    setState(() {
-      _page = index;
-    });
-  }
-
-  void bottomTapped(int index) {
-    setState(
-      () {
-        _page = index;
-        _pageController.animateToPage(index,
-            duration: Duration(milliseconds: 500), curve: Curves.linear);
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return new WillPopScope(
       onWillPop: () async => false,
@@ -116,6 +89,33 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      _page = index;
+    });
+  }
+
+  void bottomTapped(int index) {
+    setState(
+      () {
+        _page = index;
+        _pageController.animateToPage(index,
+            duration: Duration(milliseconds: 500), curve: Curves.linear);
+      },
     );
   }
 

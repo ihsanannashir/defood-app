@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _success;
   String _userEmail;
   bool _showCircular = false;
+  bool _isObscure = true;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 60.0,
           child: TextFormField(
             controller: _passwordController,
-            obscureText: true,
+            obscureText: _isObscure,
             style: TextStyle(
               color: Colors.black54,
               fontFamily: 'Inter',
@@ -156,6 +157,16 @@ class _LoginPageState extends State<LoginPage> {
               prefixIcon: Icon(
                 Icons.lock,
                 color: Colors.black,
+              ),
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
+                color: Colors.black54,
               ),
               hintText: 'Kata Sandi...',
               hintStyle: kHintTextStyle,
@@ -246,31 +257,45 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.maxFinite,
       child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () async {
-          //..Login with google
-        },
-        padding: EdgeInsets.symmetric(horizontal: 35.0, vertical: 12.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Google Account',
-              style: TextStyle(
-                color: Colors.black,
-                letterSpacing: 1.5,
-                fontSize: 16.0,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Inter',
+          elevation: 5.0,
+          onPressed: () async {
+            //..Login with google
+          },
+          padding: EdgeInsets.symmetric(horizontal: 35.0, vertical: 12.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.white,
+          child: InkWell(
+            onTap: () {},
+            child: Ink(
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.all(6),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/google_logo.png',
+                      width: 20,
+                      height: 20,
+                    ), // <-- Use 'Image.asset(...)' here
+                    SizedBox(width: 12),
+                    Text(
+                      'Google Account',
+                      style: TextStyle(
+                        color: Colors.black,
+                        letterSpacing: 1.5,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 

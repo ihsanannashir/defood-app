@@ -1,7 +1,10 @@
 import 'package:defood/screens/screencontrol.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import '../utilities/constants.dart';
+import './register.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -10,68 +13,265 @@ final TextEditingController _passwordController = TextEditingController();
 bool _success;
 String _userEmail;
 
-//3
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-//4
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
-        key: _formKey,
+
+  Widget _emailInput() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.center,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(
+              color: Colors.black54,
+              fontFamily: 'Inter',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.email,
+                color: Colors.black,
+              ),
+              hintText: 'Email Pengguna...',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _passwordInput() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            controller: _passwordController,
+            obscureText: true,
+            style: TextStyle(
+              color: Colors.black54,
+              fontFamily: 'Inter',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.black,
+              ),
+              hintText: 'Kata Sandi...',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _LoginBtn() {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(vertical: 25.0),
+      width: double.maxFinite,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () async {
+          if (_formKey.currentState.validate()) {
+            _signInWithEmailAndPassword();
+          }
+        },
+        padding: EdgeInsets.symmetric(horizontal: 35.0, vertical: 12.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        color: Colors.white,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              child: const Text('Test sign in with email and password'),
-              padding: const EdgeInsets.all(16),
-              alignment: Alignment.center,
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              alignment: Alignment.center,
-              child: RaisedButton(
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    _signInWithEmailAndPassword();
-                    debugPrint((_success).toString());
-                    if (_success) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ScreenControlPage()));
-                    }
-                  }
-                },
-                child: const Text('Submit'),
+            Text(
+              'MASUK',
+              style: TextStyle(
+                color: Color(0xFFBD452C),
+                letterSpacing: 1.5,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Inter',
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _toRegister() {
+    return Container(
+      alignment: Alignment.center,
+      child: TextButton(
+        onPressed: () {
+          navigateToRegister(context);
+        },
+        child: Text(
+          'Belum punya akun? Daftar',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Inter',
+            fontSize: 15.0,
+          ),
+        )
+      ),
+    );
+  }
+
+  Widget _altText() {
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        'Atau Masuk Menggunakan',
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Inter',
+          fontSize: 15.0,
+        ),
+      )
+    );
+  }
+
+  Widget _altLogin() {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(vertical: 25.0),
+      width: double.maxFinite,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () async {
+          //..Login with google
+        },
+        padding: EdgeInsets.symmetric(horizontal: 35.0, vertical: 12.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Google Account',
+              style: TextStyle(
+                color: Colors.black,
+                letterSpacing: 1.5,
+                fontSize: 16.0,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'Inter',
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _border() {
+    return Container(
+      color: Colors.white,
+      child: (Row(
+        children: <Widget>[
+          // ...
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 5.0),
+              ],
+            ),
+          )
+        ],
+      )),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFBD452C),
+                ),
+              ),
+              Container(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 120.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Inter',
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      _emailInput(),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      _passwordInput(),
+                      SizedBox(height: 15.0),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Lupa Kata Sandi?',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Inter',
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ),
+                      _LoginBtn(),
+                      SizedBox(height: 20.0),
+                      _toRegister(),
+                      _border(),
+                      SizedBox(height: 40.0),
+                      _altText(),
+                      _altLogin(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -101,5 +301,9 @@ class _LoginPageState extends State<LoginPage> {
         _success = false;
       });
     }
+  }
+
+  Future navigateToRegister(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 }

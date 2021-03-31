@@ -1,9 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
     package="com.example.defood">
-=======
-    package="com.example.creatice">
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->

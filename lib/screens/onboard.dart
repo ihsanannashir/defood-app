@@ -15,6 +15,77 @@ class _OnBoardState extends State<OnBoard> {
   UpdateType updateType;
 
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          LiquidSwipe(
+            enableLoop: false,
+            pages: pages,
+            positionSlideIcon: 0.8,
+            slideIconWidget:
+                page != pages.length - 1 ? Icon(Icons.arrow_back_ios) : null,
+            onPageChangeCallback: pageChangeCallback,
+            waveType: WaveType.liquidReveal,
+            liquidController: liquidController,
+            ignoreUserGestureWhileAnimating: true,
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: <Widget>[
+                Expanded(child: SizedBox()),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List<Widget>.generate(pages.length, _buildDot),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: TextButton(
+                onPressed: () {
+                  liquidController.animateToPage(
+                      page: pages.length - 1, duration: 700);
+                },
+                child:
+                    Text("Skip to End", style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ),
+          if (page == pages.length - 1)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextButton(
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)))),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child:
+                      Text("Go to app", style: TextStyle(color: Colors.black)),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  @override
   void initState() {
     liquidController = LiquidController();
     super.initState();
@@ -134,77 +205,6 @@ class _OnBoardState extends State<OnBoard> {
             height: 8.0 * zoom,
           ),
         ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          LiquidSwipe(
-            enableLoop: false,
-            pages: pages,
-            positionSlideIcon: 0.8,
-            slideIconWidget:
-                page != pages.length - 1 ? Icon(Icons.arrow_back_ios) : null,
-            onPageChangeCallback: pageChangeCallback,
-            waveType: WaveType.liquidReveal,
-            liquidController: liquidController,
-            ignoreUserGestureWhileAnimating: true,
-          ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: <Widget>[
-                Expanded(child: SizedBox()),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List<Widget>.generate(pages.length, _buildDot),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: TextButton(
-                onPressed: () {
-                  liquidController.animateToPage(
-                      page: pages.length - 1, duration: 700);
-                },
-                child:
-                    Text("Skip to End", style: TextStyle(color: Colors.white)),
-              ),
-            ),
-          ),
-          if (page == pages.length - 1)
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: TextButton(
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                        EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-                      ),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)))),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  },
-                  child:
-                      Text("Go to app", style: TextStyle(color: Colors.black)),
-                ),
-              ),
-            ),
-        ],
       ),
     );
   }

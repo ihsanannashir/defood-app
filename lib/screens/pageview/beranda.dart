@@ -39,29 +39,31 @@ class _BerandaState extends State<Beranda> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Stack(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: SafeArea(
+            child: Column(
               children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: MediaQuery.of(context).size.height / 2.7,
-                  color: Color(0xFFBD452C),
+                Stack(
+                  children: [
+                    Container(
+                      alignment: Alignment.topCenter,
+                      height: MediaQuery.of(context).size.height / 2.7,
+                      color: Color(0xFFBD452C),
+                    ),
+                    searchView(),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
+                        child: carouselView()),
+                  ],
                 ),
-                searchView(),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
-                    child: carouselView()),
+                trendGrid(),
+                catGrid(),
               ],
             ),
-            trendGrid(),
-            catGrid(),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   Widget searchView() {

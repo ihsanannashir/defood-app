@@ -35,11 +35,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-<<<<<<< HEAD
         applicationId "com.example.defood"
-=======
-        applicationId "com.example.creatice"
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
         minSdkVersion 23
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -61,8 +57,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-<<<<<<< HEAD
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
-=======
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 }

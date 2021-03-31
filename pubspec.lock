@@ -22,7 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-<<<<<<< HEAD
   bottom_navy_bar:
     dependency: "direct main"
     description:
@@ -30,8 +29,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.6.0"
-=======
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   carousel_slider:
     dependency: "direct main"
     description:
@@ -60,16 +57,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-<<<<<<< HEAD
-=======
-  cloud_firestore:
-    dependency: "direct main"
-    description:
-      name: cloud_firestore
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.12.11"
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   collection:
     dependency: transitive
     description:
@@ -119,30 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.3.3"
-<<<<<<< HEAD
-=======
-  firebase_analytics:
-    dependency: "direct main"
-    description:
-      name: firebase_analytics
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.16"
-  firebase_analytics_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_analytics_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
-  firebase_analytics_web:
-    dependency: transitive
-    description:
-      name: firebase_analytics_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   firebase_auth:
     dependency: "direct main"
     description:
@@ -171,7 +134,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+2"
-<<<<<<< HEAD
   firebase_dynamic_links:
     dependency: "direct main"
     description:
@@ -179,8 +141,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.3"
-=======
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   flutter:
     dependency: "direct main"
     description: flutter
@@ -438,11 +398,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "2.0.5"
-=======
-    version: "2.0.4"
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
   xdg_directories:
     dependency: transitive
     description:

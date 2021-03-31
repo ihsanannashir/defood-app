@@ -1,16 +1,8 @@
 import 'dart:math';
-<<<<<<< HEAD
 import 'package:defood/screens/login.dart';
 import 'package:defood/screens/screencontrol.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-=======
-
-import 'package:creatice/screens/screencontrol.dart';
-import 'package:flutter/material.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:lottie/lottie.dart';
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
 
 class OnBoard extends StatefulWidget {
   @override

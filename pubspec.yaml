@@ -65,14 +65,6 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-    - assets/images/line.jpg
-    - assets/animations/onboard1.json
-    - assets/animations/onboard2.json
-    - assets/animations/onboard3.json
-    - assets/images/angry.png
-    - assets/images/happy.png
-    - assets/images/hi.png
-    - assets/images/yay.png
     - assets/images/food1.png
     - assets/images/food2.png
     - assets/images/food3.png
@@ -82,6 +74,7 @@ flutter:
     - assets/images/food7.png
     - assets/images/food8.png
     - assets/images/food9.png
+    - assets/images/google_logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

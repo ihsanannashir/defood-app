@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:defood/screens/sub_screens/categories.dart';
 
 class Beranda extends StatefulWidget {
   @override
@@ -17,25 +18,6 @@ class _BerandaState extends State<Beranda> {
     'food4.png',
     'food5.png',
   ];
-  static final List<String> imgTitle = [
-    'Promo #1',
-    'Promo #2',
-    'Promo #3',
-    'Promo #4',
-    'Promo #5',
-  ];
-  static final List<String> imgCapt = [
-    'This is promo number 1. Great food great price!',
-    'This is promo number 2. Great food great price!',
-    'This is promo number 3. Great food great price!',
-    'This is promo number 4. Great food great price!',
-    'This is promo number 5. Great food great price!',
-  ];
-
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,13 +99,22 @@ class _BerandaState extends State<Beranda> {
           height: MediaQuery.of(context).size.height / 4.5,
           child: CarouselSlider(
             items: imgSlider.map((fileImage) {
-              return Container(
-                child: Image(
-                  image: AssetImage('assets/images/${fileImage}'),
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                ),
-              );
+              return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: ClipPath(
+                    child: Container(
+                      child: Image(
+                        image: AssetImage('assets/images/${fileImage}'),
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    clipper: ShapeBorderClipper(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0))),
+                  ));
             }).toList(),
             options: CarouselOptions(
                 autoPlay: true,
@@ -168,68 +159,35 @@ class _BerandaState extends State<Beranda> {
                         fontSize: 20,
                         color: Color(0xFFBD452C))),
                 new Spacer(),
-                IconButton(icon: Icon(Icons.fullscreen), onPressed: () {}),
+                IconButton(
+                    icon: Icon(Icons.fullscreen),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoriesPage()));
+                    }),
               ],
             ),
             Container(
-              height: 110,
-              child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.only(top: 5),
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
-                crossAxisCount: 1,
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food6.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food7.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food8.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food9.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food1.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food2.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                ],
+              height: 120,
+              child: InkWell(
+                child: GridView.count(
+                  primary: false,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  crossAxisCount: 1,
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    itemGrid('assets/images/food6.png'),
+                    itemGrid('assets/images/food7.png'),
+                    itemGrid('assets/images/food8.png'),
+                    itemGrid('assets/images/food9.png'),
+                    itemGrid('assets/images/food1.png'),
+                    itemGrid('assets/images/food2.png'),
+                    itemGrid('assets/images/food3.png'),
+                  ],
+                ),
               ),
             )
           ],
@@ -250,71 +208,61 @@ class _BerandaState extends State<Beranda> {
                         fontSize: 20,
                         color: Color(0xFFBD452C))),
                 new Spacer(),
-                IconButton(icon: Icon(Icons.fullscreen), onPressed: () {}),
+                IconButton(
+                    icon: Icon(Icons.fullscreen),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoriesPage()));
+                    }),
               ],
             ),
             Container(
-              height: 110,
+              height: 120,
               child: GridView.count(
                 primary: false,
-                padding: const EdgeInsets.only(top: 5),
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
                 crossAxisCount: 1,
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food3.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food4.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food5.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food6.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food7.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  Container(
-                    child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(),
-                        child: Image.asset(
-                          'assets/images/food2.png',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
+                  itemGrid('assets/images/food3.png'),
+                  itemGrid('assets/images/food4.png'),
+                  itemGrid('assets/images/food5.png'),
+                  itemGrid('assets/images/food6.png'),
+                  itemGrid('assets/images/food7.png'),
+                  itemGrid('assets/images/food8.png'),
+                  itemGrid('assets/images/food9.png'),
                 ],
               ),
             )
           ],
         ));
+  }
+
+  Widget itemGrid(image) {
+    return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: ClipPath(
+          child: Container(
+            child: ConstrainedBox(
+                constraints: BoxConstraints.expand(),
+                child: Image.asset(
+                  '$image',
+                  fit: BoxFit.cover,
+                )),
+          ),
+          clipper: ShapeBorderClipper(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0))),
+        ));
+  }
+
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 }

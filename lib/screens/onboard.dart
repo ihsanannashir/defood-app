@@ -196,15 +196,8 @@ class _OnBoardState extends State<OnBoard> {
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0)))),
                   onPressed: () {
-<<<<<<< HEAD
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
-=======
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ScreenControlPage()));
->>>>>>> d2824b02de0591ca5e0070d2b0e82a21f1722443
                   },
                   child:
                       Text("Go to app", style: TextStyle(color: Colors.black)),

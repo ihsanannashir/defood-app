@@ -83,6 +83,7 @@ class _RegisterEmailSectionState extends State<RegisterPage> {
           password: _passwordController.text,
         )
     ).user;
+
     if (user != null) {
       setState(() {
         _success = true;
@@ -93,5 +94,14 @@ class _RegisterEmailSectionState extends State<RegisterPage> {
         _success = true;
       });
     }
+  }
+
+}
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

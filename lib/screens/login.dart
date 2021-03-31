@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import './register.dart';
 import '../utilities/constants.dart';
+import 'package:defood/screens/screencontrol.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -30,7 +31,9 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+
               child: const Text('Sign In'),
+
               padding: const EdgeInsets.all(16),
               alignment: Alignment.center,
             ),
@@ -60,7 +63,14 @@ class _LoginPageState extends State<LoginPage> {
               child: RaisedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    _signInWithEmailAndPassword();
+                    debugPrint((_success).toString());
+                    if (_success) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScreenControlPage()));
+                    }
+                    
                   }
                 },
                 child: const Text('MASUK'),
@@ -84,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text("Belum punya akun? Daftar")
            ),
+
           ],
         ),
       ),
@@ -101,8 +112,8 @@ class _LoginPageState extends State<LoginPage> {
     final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
+
     )).user;
-    
     if (user != null) {
       setState(() {
         _success = true;
@@ -114,8 +125,8 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
-
   Future navigateToRegister(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 }
+

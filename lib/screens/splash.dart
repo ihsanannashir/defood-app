@@ -1,6 +1,12 @@
 import 'dart:async';
+
+import 'package:creatice/screens/onboard.dart';
+
 import 'package:flutter/material.dart';
+
 import './login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'screencontrol.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key, this.title}) : super(key: key);
@@ -30,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   //Screen transition
-  void navigationPage() {
+  void navigationPage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
     Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -49,7 +57,15 @@ class _SplashScreenState extends State<SplashScreen>
               );
             },
             pageBuilder: (context, animation, animationTime) {
-              return LoginPage();
+              if (_seen) {
+
+                return LoginPage();
+
+              } else {
+                prefs.setBool('seen', true);
+                return OnBoard();
+              }
+
             }));
   }
 
@@ -57,14 +73,10 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.6, 1],
-                colors: [Colors.blue, Colors.white])),
+          color: Color(0xFFBD452C),
+        ),
         child: Stack(
           children: [
-            containerAnimation(),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
                   new Icon(
                     Icons.directions_bike,
                     size: MediaQuery.of(context).size.width / 3,
-                    color: Colors.blue,
+                    color: Colors.white,
                   ),
                   new Material(
                       color: Colors.transparent,
@@ -82,54 +94,11 @@ class _SplashScreenState extends State<SplashScreen>
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24.0,
-                                  color: Colors.blue))))
+                                  color: Colors.white))))
                 ],
               ),
             ),
           ],
         ));
-  }
-
-  Widget containerAnimation() {
-    return TweenAnimationBuilder(
-      tween: Tween<Offset>(begin: Offset(0, startPos), end: Offset(0, endPos)),
-      duration: Duration(milliseconds: 2000),
-      curve: curve,
-      builder: (context, offset, child) {
-        return FractionalTranslation(
-          translation: offset,
-          child: Container(
-            width: double.infinity,
-            child: Center(
-              child: child,
-            ),
-          ),
-        );
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(150))),
-      ),
-      onEnd: () {
-        print('onEnd');
-        Future.delayed(
-          Duration(milliseconds: 600),
-          () {
-            curve = curve == Curves.elasticOut
-                ? Curves.elasticIn
-                : Curves.elasticOut;
-            if (startPos == 1) {
-              setState(() {
-                startPos = 0.0;
-                endPos = -1.0;
-              });
-            }
-          },
-        );
-      },
-    );
   }
 }

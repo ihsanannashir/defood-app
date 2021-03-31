@@ -19,7 +19,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   Widget _emailInput() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(height: 10.0),
         Container(
           alignment: Alignment.center,
-          decoration: kBoxDecorationStyle,
+          decoration: BoxDecorationStyle,
           height: 60.0,
           child: TextField(
             controller: _emailController,
@@ -44,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.black,
               ),
               hintText: 'Email Pengguna...',
-              hintStyle: kHintTextStyle,
+              hintStyle: HintTextStyle,
             ),
           ),
         ),
@@ -59,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
+          decoration: BoxDecorationStyle,
           height: 60.0,
           child: TextField(
             controller: _passwordController,
@@ -76,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.black,
               ),
               hintText: 'Kata Sandi...',
-              hintStyle: kHintTextStyle,
+              hintStyle: HintTextStyle,
             ),
           ),
         ),
@@ -124,33 +123,31 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       alignment: Alignment.center,
       child: TextButton(
-        onPressed: () {
-          navigateToRegister(context);
-        },
-        child: Text(
-          'Belum punya akun? Daftar',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Inter',
-            fontSize: 15.0,
-          ),
-        )
-      ),
+          onPressed: () {
+            navigateToRegister(context);
+          },
+          child: Text(
+            'Belum punya akun? Daftar',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Inter',
+              fontSize: 15.0,
+            ),
+          )),
     );
   }
 
   Widget _altText() {
     return Container(
-      alignment: Alignment.center,
-      child: Text(
-        'Atau Masuk Menggunakan',
-        style: TextStyle(
-          color: Colors.white,
-          fontFamily: 'Inter',
-          fontSize: 15.0,
-        ),
-      )
-    );
+        alignment: Alignment.center,
+        child: Text(
+          'Atau Masuk Menggunakan',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Inter',
+            fontSize: 15.0,
+          ),
+        ));
   }
 
   Widget _altLogin() {
@@ -304,6 +301,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future navigateToRegister(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 }

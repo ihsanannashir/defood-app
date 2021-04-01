@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
-                Icons.lock,
+                Icons.vpn_key_outlined,
                 color: Colors.black,
               ),
               suffixIcon: IconButton(
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                     _isObscure = !_isObscure;
                   });
                 },
-                color: Colors.black54,
+                color: Color(0xFFBD452C),
               ),
               hintText: 'Kata Sandi...',
               hintStyle: kHintTextStyle,

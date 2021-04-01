@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -82,38 +84,76 @@ class _CategoriesPageState extends State<CategoriesPage> {
       mainAxisSpacing: 10,
       crossAxisCount: 2,
       children: <Widget>[
-        itemGrid('assets/images/food1.png'),
-        itemGrid('assets/images/food2.png'),
-        itemGrid('assets/images/food3.png'),
-        itemGrid('assets/images/food4.png'),
-        itemGrid('assets/images/food5.png'),
-        itemGrid('assets/images/food6.png'),
-        itemGrid('assets/images/food7.png'),
-        itemGrid('assets/images/food8.png'),
-        itemGrid('assets/images/food9.png'),
-        itemGrid('assets/images/food1.png'),
-        itemGrid('assets/images/food1.png'),
+        items('assets/images/categories/bread.png', 'Bread'),
+        items('assets/images/categories/desserts.png', 'Desserts'),
+        items('assets/images/categories/drinks.png', 'Drinks'),
+        items('assets/images/categories/fast_food.png', 'Fast Food'),
+        items('assets/images/categories/healthy_food.png', 'Healthy Food'),
+        items('assets/images/categories/meat.png', 'Meat'),
+        items('assets/images/categories/noodles.png', 'Noodles'),
+        items('assets/images/categories/pizza.png', 'Pizza'),
+        items('assets/images/categories/rice.png', 'Rice'),
+        items('assets/images/categories/snacks.png', 'Snacks'),
       ],
     );
   }
 
-  Widget itemGrid(image) {
-    return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ClipPath(
-          child: Container(
-            child: ConstrainedBox(
-                constraints: BoxConstraints.expand(),
-                child: Image.asset(
-                  '$image',
-                  fit: BoxFit.cover,
+  Widget items(image, category) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: ClipPath(
+              child: Container(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(),
+                    child: Image.asset(
+                      '$image',
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            color: Colors.transparent,
+            child: ClipPath(
+              child: Container(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFFBD452C).withOpacity(0.3),
+                    ),
+                  ),
+                ),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('$category',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 )),
-          ),
-          clipper: ShapeBorderClipper(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0))),
-        ));
+          ],
+        ),
+      ],
+    );
   }
 }

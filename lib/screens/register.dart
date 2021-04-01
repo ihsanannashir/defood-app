@@ -11,7 +11,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -24,74 +23,72 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Form(
-            key: _formKey,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBD452C),
-                  ),
-                ),
-                Container(
-                  height: double.infinity,
-                  child: SingleChildScrollView(
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 120.0,
+        resizeToAvoidBottomInset: false,
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Form(
+                key: _formKey,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFBD452C),
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Daftar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Inter',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                    Container(
+                        height: double.infinity,
+                        child: SingleChildScrollView(
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.0,
+                            vertical: 120.0,
                           ),
-                        ),
-                        SizedBox(height: 20.0),
-                        _usernameInp(),
-                        SizedBox(height: 5.0),
-                        _emailInp(),
-                        SizedBox(height: 5.0),
-                        _passwordInp(),
-                        SizedBox(height: 10.0),
-                        _registerBtn(),
-                        SizedBox(height: 10.0),
-                        _toLogin(),
-                        _border(),
-                        SizedBox(height: 20.0),
-                        _altDesc(),
-                        _altRegister(),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(_success == null
-                              ? ''
-                              : (_success
-                                  ? 'Successfully registered ' + _userEmail
-                                  : 'Registration failed')),
-                        )
-                      ],
-                    ),
-                  )
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Daftar',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Inter',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 20.0),
+                              _usernameInp(),
+                              SizedBox(height: 5.0),
+                              _emailInp(),
+                              SizedBox(height: 5.0),
+                              _passwordInp(),
+                              SizedBox(height: 10.0),
+                              _registerBtn(),
+                              SizedBox(height: 10.0),
+                              _toLogin(),
+                              _border(),
+                              SizedBox(height: 20.0),
+                              _altDesc(),
+                              _altRegister(),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(_success == null
+                                    ? ''
+                                    : (_success
+                                        ? 'Successfully registered ' +
+                                            _userEmail
+                                        : 'Registration failed')),
+                              )
+                            ],
+                          ),
+                        )),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        )
-      )
-    );
+              ),
+            )));
   }
 
   //INI MASIH BELUM BISA DIPAKE
@@ -202,7 +199,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     _isObscure = !_isObscure;
                   });
                 },
-                color: Color(0xFFBD452C),  
+                color: Color(0xFFBD452C),
               ),
               hintText: 'Kata Sandi...',
               hintStyle: kHintTextStyle,
@@ -261,10 +258,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: TextButton(
           onPressed: () {
             Navigator.push(
-              context, MaterialPageRoute(
-                builder: (context) => LoginPage()
-              )
-            );
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
           },
           child: Text(
             'Sudah Punya Akun? Masuk',

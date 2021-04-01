@@ -31,7 +31,7 @@ class _BerandaState extends State<Beranda> {
                   children: [
                     Container(
                       alignment: Alignment.topCenter,
-                      height: MediaQuery.of(context).size.height / 2.7,
+                      height: MediaQuery.of(context).size.height / 2.9,
                       color: Color(0xFFBD452C),
                     ),
                     searchView(),
@@ -52,11 +52,11 @@ class _BerandaState extends State<Beranda> {
     return Row(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 5),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 60,
-            padding: EdgeInsets.fromLTRB(20, 8.0, 20, 8.0),
+            padding: EdgeInsets.fromLTRB(20, 15.0, 20, 8.0),
             child: TextField(
               controller: searchController,
               decoration: InputDecoration(
@@ -96,7 +96,8 @@ class _BerandaState extends State<Beranda> {
     return Column(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height / 4.5,
+          height: MediaQuery.of(context).size.height / 5,
+          width: MediaQuery.of(context).size.width,
           child: CarouselSlider(
             items: imgSlider.map((fileImage) {
               return Card(
@@ -137,7 +138,9 @@ class _BerandaState extends State<Beranda> {
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _currentImage == index ? Colors.grey : Colors.white),
+                  color: _currentImage == index
+                      ? Colors.grey.shade400
+                      : Colors.white),
             );
           }).toList(),
         ),
@@ -172,6 +175,8 @@ class _BerandaState extends State<Beranda> {
             Container(
               height: 120,
               child: InkWell(
+                splashColor: Color(0xFFBD452C).withOpacity(0.4),
+                onTap: () {},
                 child: GridView.count(
                   primary: false,
                   crossAxisSpacing: 15,
@@ -179,13 +184,14 @@ class _BerandaState extends State<Beranda> {
                   crossAxisCount: 1,
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    itemGrid('assets/images/food6.png'),
-                    itemGrid('assets/images/food7.png'),
-                    itemGrid('assets/images/food8.png'),
-                    itemGrid('assets/images/food9.png'),
-                    itemGrid('assets/images/food1.png'),
-                    itemGrid('assets/images/food2.png'),
-                    itemGrid('assets/images/food3.png'),
+                    itemsTrending('assets/images/food6.png', 'Discount 50%',
+                        'on selected items'),
+                    itemsTrending(
+                        'assets/images/food7.png', 'Buy 1 Get 1', 'only today'),
+                    itemsTrending(
+                        'assets/images/food8.png', 'Title', 'caption'),
+                    itemsTrending(
+                        'assets/images/food9.png', 'Title', 'caption'),
                   ],
                 ),
               ),
@@ -227,13 +233,10 @@ class _BerandaState extends State<Beranda> {
                 crossAxisCount: 1,
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  itemGrid('assets/images/food3.png'),
-                  itemGrid('assets/images/food4.png'),
-                  itemGrid('assets/images/food5.png'),
-                  itemGrid('assets/images/food6.png'),
-                  itemGrid('assets/images/food7.png'),
-                  itemGrid('assets/images/food8.png'),
-                  itemGrid('assets/images/food9.png'),
+                  itemsCat('assets/images/categories/bread.png', 'Bread'),
+                  itemsCat('assets/images/categories/desserts.png', 'Desserts'),
+                  itemsCat('assets/images/categories/drinks.png', 'Drinks'),
+                  itemsCat('assets/images/categories/meat.png', 'Meat'),
                 ],
               ),
             )
@@ -241,24 +244,146 @@ class _BerandaState extends State<Beranda> {
         ));
   }
 
-  Widget itemGrid(image) {
-    return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+  Widget itemsTrending(image, title, caption) {
+    return Stack(
+      alignment: Alignment.bottomLeft,
+      children: [
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: ClipPath(
+              child: Container(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(),
+                    child: Image.asset(
+                      '$image',
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            color: Colors.transparent,
+            child: ClipPath(
+              child: Container(
+                height: 50,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFFBD452C).withOpacity(0.4),
+                    ),
+                  ),
+                ),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 70, 0, 0),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text('$title',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          )),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: Text('$caption',
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Inter',
+                            fontSize: 10,
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        child: ClipPath(
-          child: Container(
-            child: ConstrainedBox(
-                constraints: BoxConstraints.expand(),
-                child: Image.asset(
-                  '$image',
-                  fit: BoxFit.cover,
-                )),
-          ),
-          clipper: ShapeBorderClipper(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0))),
-        ));
+      ],
+    );
+  }
+
+  Widget itemsCat(image, category) {
+    return Stack(
+      alignment: Alignment.bottomLeft,
+      children: [
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: ClipPath(
+              child: Container(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(),
+                    child: Image.asset(
+                      '$image',
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            color: Colors.transparent,
+            child: ClipPath(
+              child: Container(
+                height: 30,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFFBD452C).withOpacity(0.4),
+                    ),
+                  ),
+                ),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+          child: Text('$category',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              )),
+        ),
+      ],
+    );
   }
 
   void dispose() {

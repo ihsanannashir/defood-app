@@ -75,6 +75,17 @@ flutter:
     - assets/images/food8.png
     - assets/images/food9.png
     - assets/images/google_logo.png
+    - assets/images/categories/bread.png
+    - assets/images/categories/drinks.png
+    - assets/images/categories/desserts.png
+    - assets/images/categories/fast_food.png
+    - assets/images/categories/healthy_food.png
+    - assets/images/categories/meat.png
+    - assets/images/categories/noodles.png
+    - assets/images/categories/pizza.png
+    - assets/images/categories/rice.png
+    - assets/images/categories/snacks.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

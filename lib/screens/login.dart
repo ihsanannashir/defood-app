@@ -325,7 +325,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _signInWithEmailAndPassword() async {
-    final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+    final User user = (await _auth.signInWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
     ))

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:defood/screens/listpages/restolist.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -34,7 +36,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               height: double.infinity,
               child: gridCat(),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -76,25 +78,55 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 
+  List imageList = [
+    'bread',
+    'desserts',
+    'drinks',
+    'fast_food',
+    'healthy_food',
+    'meat',
+    'noodles',
+    'pizza',
+    'rice',
+    'snacks'
+  ];
+  List textList = [
+    'Bread',
+    'Desserts',
+    'Drinks',
+    'Fast Food',
+    'Healthy Food',
+    'Meat',
+    'Noodles',
+    'Pizza',
+    'Rice',
+    'Snacks'
+  ];
   Widget gridCat() {
-    return GridView.count(
+    return GridView.builder(
+      itemCount: textList.length,
       primary: false,
       padding: const EdgeInsets.all(20),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      crossAxisCount: 2,
-      children: <Widget>[
-        items('assets/images/categories/bread.png', 'Bread'),
-        items('assets/images/categories/desserts.png', 'Desserts'),
-        items('assets/images/categories/drinks.png', 'Drinks'),
-        items('assets/images/categories/fast_food.png', 'Fast Food'),
-        items('assets/images/categories/healthy_food.png', 'Healthy Food'),
-        items('assets/images/categories/meat.png', 'Meat'),
-        items('assets/images/categories/noodles.png', 'Noodles'),
-        items('assets/images/categories/pizza.png', 'Pizza'),
-        items('assets/images/categories/rice.png', 'Rice'),
-        items('assets/images/categories/snacks.png', 'Snacks'),
-      ],
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemBuilder: (context, index) {
+        return InkWell(
+          onTap: () {
+            print(textList[index]);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestoList(),
+                  settings: RouteSettings(arguments: textList[index]),
+                ));
+          },
+          child: items('assets/images/categories/' + imageList[index] + '.png',
+              textList[index]),
+        );
+      },
     );
   }
 

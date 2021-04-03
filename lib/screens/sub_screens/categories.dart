@@ -10,16 +10,28 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
+  final searchController = TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Stack(
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                height: MediaQuery.of(context).size.height / 10,
+                color: Color(0xFFBD452C),
+              ),
+              searchView(),
+            ],
+          ),
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+              padding: EdgeInsets.all(20),
               child: Text(
                 "Semua Kategori",
                 style: TextStyle(
@@ -106,7 +118,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return GridView.builder(
       itemCount: textList.length,
       primary: false,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
@@ -120,7 +132,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => RestoList(),
-                  settings: RouteSettings(arguments: textList[index]),
+                  settings: RouteSettings(arguments: imageList[index]),
                 ));
           },
           child: items('assets/images/categories/' + imageList[index] + '.png',
@@ -184,6 +196,50 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   fontSize: 20,
                 )),
           ],
+        ),
+      ],
+    );
+  }
+
+  Widget searchView() {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 5),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 60,
+            padding: EdgeInsets.fromLTRB(20, 15.0, 20, 8.0),
+            child: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10.0),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Color(0xFFBD452C),
+                ),
+                labelText: "Ketik...",
+                labelStyle: TextStyle(
+                  color: Color(0x80BD452C),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 5.0),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(18.0),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 5.0),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(18.0),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );

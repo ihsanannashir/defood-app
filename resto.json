@@ -1,0 +1,36 @@
+{
+  "restoran": [
+    {
+      "id_resto": "DFR01",
+      "nama_resto": "Ayam Geprek Enak",
+      "gambar_resto": "ayam.png",
+      "genre_resto": [
+        "meat",
+        "rice",
+        "drinks"
+      ],
+      "rating": 5,
+      "alamat": "alamat resto",
+      "no_telepon": "080123456789",
+      "jam_buka": "07.00 - 19.00",
+      "status": true,
+      "menu": [
+        {
+          "nama_makanan": "Ayam Geprek + Nasi",
+          "harga_makanan": 20000,
+          "stok": true
+        },
+        {
+          "nama_makanan": "Ayam Geprek",
+          "harga_makanan": 16000,
+          "stok": true
+        },
+        {
+          "nama_makanan": "Es Teh / Teh Panas",
+          "harga_makanan": 3000,
+          "stok": true
+        }
+      ]
+    }
+  ]
+}

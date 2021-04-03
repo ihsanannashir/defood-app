@@ -23,7 +23,6 @@ class _BerandaState extends State<Beranda> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
           child: SafeArea(
             child: Column(
               children: [

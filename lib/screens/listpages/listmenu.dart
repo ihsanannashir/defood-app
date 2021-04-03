@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:defood/screens/listpages/listmenu.dart';
 
-class RestoList extends StatefulWidget {
-  const RestoList({Key key, this.categories}) : super(key: key);
-  final String categories;
+class MenuList extends StatefulWidget {
+  const MenuList({Key key, this.id}) : super(key: key);
+  final String id;
 
   @override
-  _RestoListState createState() => _RestoListState();
+  _MenuListState createState() => _MenuListState();
 }
 
-class _RestoListState extends State<RestoList> {
+class _MenuListState extends State<MenuList> {
   bool _anchorToBottom = false;
   CollectionReference resto = FirebaseFirestore.instance.collection('restoran');
 
@@ -21,13 +20,11 @@ class _RestoListState extends State<RestoList> {
 
   @override
   Widget build(BuildContext context) {
-    String cat = ModalRoute.of(context).settings.arguments;
-    String param = cat.toLowerCase();
-    debugPrint(param);
+    String id = ModalRoute.of(context).settings.arguments;
+    debugPrint(id);
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-          stream: resto
-              .where('genre_resto', arrayContainsAny: ["$param"]).snapshots(),
+          stream: resto.where('id_resto', isEqualTo: id).snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -43,17 +40,7 @@ class _RestoListState extends State<RestoList> {
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   return new ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MenuList(),
-                            settings: RouteSettings(
-                                arguments: document.data()['id_resto']),
-                          ));
-                    },
                     title: new Text(document.data()['id_resto']),
-                    subtitle: new Text(document.data()['nama_resto']),
                   );
                 }).toList(),
               ),

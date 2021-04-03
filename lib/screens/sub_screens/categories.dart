@@ -97,7 +97,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     'fast_food',
     'healthy_food',
     'meat',
-    'noodles',
+    'noodle',
     'pizza',
     'rice',
     'snacks'

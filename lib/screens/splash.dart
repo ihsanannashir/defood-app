@@ -3,7 +3,7 @@ import 'package:defood/screens/login.dart';
 import 'package:defood/screens/onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screencontrol.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key, this.title}) : super(key: key);
@@ -30,6 +30,46 @@ class _SplashScreenState extends State<SplashScreen>
   _loadWidget() async {
     var _duration = Duration(milliseconds: 4200);
     return Timer(_duration, navigationPage);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder(
+        future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          return Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFBD452C),
+              ),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Icon(
+                          Icons.directions_bike,
+                          size: MediaQuery.of(context).size.width / 3,
+                          color: Colors.white,
+                        ),
+                        new Material(
+                            color: Colors.transparent,
+                            child: Center(
+                                child: Text('AppName',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24.0,
+                                        color: Colors.white))))
+                      ],
+                    ),
+                  ),
+                ],
+              ));
+        },
+      ),
+    );
   }
 
   //Screen transition
@@ -61,38 +101,5 @@ class _SplashScreenState extends State<SplashScreen>
                 return OnBoard();
               }
             }));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          color: Color(0xFFBD452C),
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  new Icon(
-                    Icons.directions_bike,
-                    size: MediaQuery.of(context).size.width / 3,
-                    color: Colors.white,
-                  ),
-                  new Material(
-                      color: Colors.transparent,
-                      child: Center(
-                          child: Text('AppName',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24.0,
-                                  color: Colors.white))))
-                ],
-              ),
-            ),
-          ],
-        ));
   }
 }

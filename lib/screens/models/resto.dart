@@ -1,73 +1,45 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Resto {
-  String id_resto;
-  String nama_resto;
-  String gambar_resto;
-  String alamat;
-  String no_telepon;
-  String jam_buka;
-  String rating;
-  bool status;
-  List<String> genre_resto;
-  List<String> menu;
+  static const ID_RESTO = "id_resto";
+  static const NAMA_RESTO = "nama_resto";
+  static const GAMBAR_RESTO = "gambar_resto";
+  static const ALAMAT = "alamat";
+  static const NO_TELEPON = "no_telepon";
+  static const JAM_BUKA = "jam_buka";
+  static const RATING = "rating";
+  static const STATUS = "status";
+  static const GENRE_RESTO = "genre_resto";
 
-  Resto(
-      {this.id_resto,
-      this.nama_resto,
-      this.gambar_resto,
-      this.alamat,
-      this.no_telepon,
-      this.jam_buka,
-      this.genre_resto,
-      this.rating,
-      this.status,
-      this.menu});
-  Resto.fromSnapshot(DataSnapshot snapshot)
-      : id_resto = snapshot.value["id_resto"],
-        nama_resto = snapshot.value["nama_resto"],
-        gambar_resto = snapshot.value["gambar_resto"],
-        alamat = snapshot.value["alamat"],
-        no_telepon = snapshot.value["no_telepon"],
-        jam_buka = snapshot.value["jam_buka"],
-        genre_resto = snapshot.value["genre_resto"].cast<String>(),
-        rating = snapshot.value["rating"].toString(),
-        status = snapshot.value["status"],
-        menu =
-            ((snapshot.value["menu"]).map((e) => e.values.toString()).toList())
-                .cast<String>();
-  toJson() {
-    return {
-      "id_resto": id_resto,
-      "nama_resto": nama_resto,
-      "gambar_resto": gambar_resto,
-      "alamat": alamat,
-      "no_telepon": no_telepon,
-      "jam_buka": jam_buka,
-      "genre_resto": genre_resto,
-      "rating": rating,
-      "status": status,
-      "menu": menu,
-    };
-  }
-}
+  String _id_resto;
+  String _nama_resto;
+  String _gambar_resto;
+  String _alamat;
+  String _no_telepon;
+  String _jam_buka;
+  String _rating;
+  bool _status;
+  List<String> _genre_resto;
 
-class Menu {
-  String nama_makanan;
-  int harga_makanan;
-  bool stok;
+  String get id_resto => _id_resto;
+  String get nama_resto => _nama_resto;
+  String get gambar_resto => _gambar_resto;
+  String get alamat => _alamat;
+  String get no_telepon => _no_telepon;
+  String get jam_buka => _jam_buka;
+  String get rating => _rating;
+  bool get status => _status;
+  List<String> get genre_resto => _genre_resto;
 
-  Menu({this.nama_makanan, this.harga_makanan, this.stok});
-
-  Menu.fromSnapshot(DataSnapshot snapshot)
-      : nama_makanan = snapshot.value["nama_makanan"],
-        harga_makanan = snapshot.value["harga_makanan"],
-        stok = snapshot.value["stok"];
-  toJson() {
-    return {
-      "nama_makanan": nama_makanan,
-      "harga_makanan": harga_makanan,
-      "stok": stok,
-    };
+  Resto.fromSnapshot(DocumentSnapshot snapshot) {
+    _id_resto = snapshot.data()[ID_RESTO];
+    _nama_resto = snapshot.data()[NAMA_RESTO];
+    _gambar_resto = snapshot.data()[GAMBAR_RESTO];
+    _alamat = snapshot.data()[ALAMAT];
+    _no_telepon = snapshot.data()[NO_TELEPON];
+    _jam_buka = snapshot.data()[JAM_BUKA];
+    _rating = snapshot.data()[RATING];
+    _status = snapshot.data()[STATUS];
+    _genre_resto = snapshot.data()[GENRE_RESTO];
   }
 }

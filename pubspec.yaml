@@ -47,6 +47,9 @@ dependencies:
   # Shared preferences
   shared_preferences: ^2.0.5
 
+  # Provider
+  provider: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

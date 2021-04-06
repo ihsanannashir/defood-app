@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:defood/screens/models/resto.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseDatabaseUtil {
-  DatabaseReference _restoRef;
+  Query _restoRef;
   StreamSubscription<Event> _messagesSubscription;
   FirebaseDatabase database = new FirebaseDatabase();
   DatabaseError error;
@@ -28,11 +29,11 @@ class FirebaseDatabaseUtil {
     return error;
   }
 
-  DatabaseReference getResto() {
+  Query getResto(String cat) {
+    List index = [0, 1, 2];
+    for (var x = 0; x < index.length; x++) {
+      return _restoRef.equalTo(cat);
+    }
     return _restoRef;
-  }
-
-  void dispose() {
-    _messagesSubscription.cancel();
   }
 }

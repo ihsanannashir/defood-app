@@ -47,6 +47,9 @@ dependencies:
   # Shared preferences
   shared_preferences: ^2.0.5
 
+  # Provider
+  provider: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -84,7 +87,7 @@ flutter:
     - assets/images/categories/fast_food.png
     - assets/images/categories/healthy_food.png
     - assets/images/categories/meat.png
-    - assets/images/categories/noodles.png
+    - assets/images/categories/noodle.png
     - assets/images/categories/pizza.png
     - assets/images/categories/rice.png
     - assets/images/categories/snacks.png

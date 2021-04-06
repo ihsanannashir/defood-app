@@ -16,15 +16,141 @@ class _OnBoardState extends State<OnBoard> {
 
   @override
   Widget build(BuildContext context) {
+    final pages = <Widget>[
+      Container(
+        alignment: Alignment.center,
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(color: Color(0xFFBD452C)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('/assets/images/food1.png'),
+                  )),
+            ),
+            Text(
+              "Selamat Datang",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(
+                "De-Food merupakan aplikasi yang menyediakan berbagai makanan dan minuman yang murah dan terjangkau terutama untuk kalangan mahasiswa",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      Container(
+        alignment: Alignment.center,
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(color: Color(0xFFBD452C)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('/assets/images/food2.png'),
+                  )),
+            ),
+            Text(
+              "Fitur Utama Kami",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(
+                "Kami menyediakan pesanan pengiriman terjadwal yang gratis dan anda juga bisa memesan terlebih dahulu melalui aplikasi tanpa antri lalu ambil sendiri di tempat",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      Container(
+        alignment: Alignment.center,
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(color: Color(0xFFBD452C)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('/assets/images/food2.png'),
+                  )),
+            ),
+            Text(
+              "Sudah Siap?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(
+                "Jangan lupa ajak teman anda untuk menikmati fitur yang kami sediakan, dapatkan poin yang bisa ditukarkan apa saja setiap anda mengajak teman.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ];
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
           LiquidSwipe(
             enableLoop: false,
             pages: pages,
-            positionSlideIcon: 0.8,
-            slideIconWidget:
-                page != pages.length - 1 ? Icon(Icons.arrow_back_ios) : null,
             onPageChangeCallback: pageChangeCallback,
             waveType: WaveType.liquidReveal,
             liquidController: liquidController,
@@ -51,8 +177,9 @@ class _OnBoardState extends State<OnBoard> {
                   liquidController.animateToPage(
                       page: pages.length - 1, duration: 700);
                 },
-                child:
-                    Text("Skip to End", style: TextStyle(color: Colors.white)),
+                child: page == pages.length - 1
+                    ? Text("Skip to End", style: TextStyle(color: Colors.white))
+                    : null,
               ),
             ),
           ),
@@ -75,8 +202,8 @@ class _OnBoardState extends State<OnBoard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
                   },
-                  child:
-                      Text("Go to app", style: TextStyle(color: Colors.black)),
+                  child: Text("Go to app",
+                      style: TextStyle(color: Color(0xFFBD452C))),
                 ),
               ),
             ),
@@ -90,101 +217,6 @@ class _OnBoardState extends State<OnBoard> {
     liquidController = LiquidController();
     super.initState();
   }
-
-  final pages = <Widget>[
-    Container(
-      alignment: Alignment.center,
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(color: Color(0xFFBD452C)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Welcome to AppName!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'FrankRuhlLibre',
-              fontWeight: FontWeight.w700,
-              fontSize: 24,
-              color: Colors.white,
-            ),
-          ),
-          Text(
-            "We are here to help you to \norder food without having to\npay a lot of money",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 14,
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
-    ),
-    Container(
-      alignment: Alignment.center,
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(color: Colors.grey.shade200),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Hmm...?",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'FrankRuhlLibre',
-              fontWeight: FontWeight.w700,
-              fontSize: 24,
-              color: Color(0xFFBD452C),
-            ),
-          ),
-          Text(
-            "Having a hard time choosing food?\nCheck our recommendation menu\nand order for later",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 14,
-              color: Color(0xFFBD452C),
-            ),
-          )
-        ],
-      ),
-    ),
-    Container(
-      alignment: Alignment.center,
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(color: Color(0xFFBD452C)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Don't worry and be FULL!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: 'FrankRuhlLibre',
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: Colors.white),
-          ),
-          Text(
-            "With AppName, you can choose\nfrom variety of foods\nfrom sweets to salty to\ndelicious boba drinks, YUM!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 14,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    ),
-  ];
 
   Widget _buildDot(int index) {
     double selectedness = Curves.easeOut.transform(

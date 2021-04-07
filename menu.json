@@ -1,0 +1,10 @@
+{
+  "menu": [
+    {
+      "id_makanan": "DFR01-01",
+      "nama_makanan": "Ayam Geprek + Nasi",
+      "harga_makanan": 20000,
+      "stok": true
+    }
+  ]
+}

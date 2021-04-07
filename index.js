@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 
 var serviceAccount = require("./config.json");
-var database = require("./resto.json");
+var database = require("./menu.json");
 var async = require ('async');
 
 admin.initializeApp({

@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MenuList extends StatefulWidget {
@@ -14,10 +17,28 @@ class _MenuListState extends State<MenuList> {
   CollectionReference resto = FirebaseFirestore.instance.collection('restoran');
   CollectionReference menu = FirebaseFirestore.instance.collection('menu');
   final searchController = TextEditingController();
+  int quantity = 0;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.initState();
+  }
+
+  _plusCounter() {
+    setState(() {
+      quantity++;
+    });
+  }
+
+  _minusCounter() {
+    setState(() {
+      quantity--;
+    });
   }
 
   @override
@@ -35,6 +56,30 @@ class _MenuListState extends State<MenuList> {
               color: Color(0xFFBD452C),
             ),
             searchView(),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 230, 20, 0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.sort,
+                        size: 24,
+                        color: Color(0xFFBD452C),
+                      ),
+                      Container(width: 10.0),
+                      Text(
+                        "Sort",
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xFFBD452C)),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 90, 0, 0),
               child: StreamBuilder<QuerySnapshot>(
@@ -133,7 +178,7 @@ class _MenuListState extends State<MenuList> {
         SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height / 6,
+            height: MediaQuery.of(context).size.height * 0.520,
             child: StreamBuilder<QuerySnapshot>(
                 stream: menu
                     .where('id_makanan',
@@ -153,19 +198,32 @@ class _MenuListState extends State<MenuList> {
                   }
 
                   return new InkWell(
-                    onTap: () {},
-                    child: ListView(
-                      children:
-                          snapshot.data.docs.map((DocumentSnapshot document) {
-                        return new ListTile(
-                          title: new Text(document.data()['id_makanan']),
-                          subtitle: new Text(
-                              document.data()['harga_makanan'].toString()),
-                          trailing: new Text(document.data()['nama_makanan']),
-                        );
-                      }).toList(),
-                    ),
-                  );
+                      onTap: () {},
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                        child: GridView(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          children: snapshot.data.docs
+                              .map((DocumentSnapshot document) {
+                            return new InkWell(
+                                onTap: () {
+                                  detailMenu(
+                                      document.data()['nama_makanan'],
+                                      document.data()['harga_makanan'],
+                                      document.data()['gambar_makanan']);
+                                },
+                                child: menuItems(
+                                    document.data()['nama_makanan'],
+                                    document.data()['harga_makanan'],
+                                    document.data()['gambar_makanan']));
+                          }).toList(),
+                        ),
+                      ));
                 }),
           ),
         )
@@ -250,6 +308,241 @@ class _MenuListState extends State<MenuList> {
           onPressed: () {},
         ),
       ],
+    );
+  }
+
+  Widget menuItems(nama, harga, gambar) {
+    return Stack(
+      alignment: Alignment.bottomLeft,
+      children: [
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: ClipPath(
+              child: Container(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(),
+                    child: Image.network(
+                      gambar,
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            color: Colors.transparent,
+            child: ClipPath(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFFBD452C).withOpacity(0.4),
+                    ),
+                  ),
+                ),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 30),
+          child: Text(nama,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              )),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+          child: Text(harga.toString(),
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              )),
+        ),
+      ],
+    );
+  }
+
+  Future<void> detailMenu(nama, harga, gambar) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        StreamController<String> controller =
+            StreamController<String>.broadcast();
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.6,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Color(0xFFBD452C),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width,
+                          child: ClipPath(
+                            child: Image.network(gambar, fit: BoxFit.cover),
+                            clipper: ShapeBorderClipper(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30)),
+                              ),
+                            ),
+                          ))
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        nama,
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 5,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Deskripsi makanan yang enak banget, ini enak banget, ini pokoknya deskripsi makanan!',
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 12,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 55, vertical: 10),
+                    child: Row(
+                      children: <Widget>[
+                        IconButton(
+                            icon: Icon(
+                              CupertinoIcons.minus_circle_fill,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                            onPressed: () => controller.add(
+                                  quantity != 0 ? _minusCounter() : null,
+                                )),
+                        Container(width: 20),
+                        StreamBuilder(
+                            stream: controller.stream,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> snapshot) {
+                              return Text(
+                                  snapshot.hasData
+                                      ? snapshot.data
+                                      : quantity.toString(),
+                                  style: TextStyle(color: Colors.white));
+                            }),
+                        Container(width: 20),
+                        IconButton(
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          onPressed: () => controller.add(_plusCounter()),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: <Widget>[
+                        TextButton(
+                          child: Text('Cancel',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () {
+                            quantity = 0;
+                            Navigator.pop(context);
+                          },
+                        ),
+                        new Spacer(),
+                        TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                          ),
+                          child: Text('Add to cart',
+                              style: TextStyle(color: Color(0xFFBD452C))),
+                          onPressed: () {
+                            if (quantity == 0) {
+                              _showToast(context,
+                                  'Quantity is zero. \nItems not added to cart');
+                              Navigator.pop(context);
+                            } else {
+                              _showToast(context,
+                                  'Successfully added $quantity $nama to cart!');
+                              quantity = 0;
+                              Navigator.pop(context);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showToast(BuildContext context, text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        duration: const Duration(seconds: 3),
+        backgroundColor: Color(0xFFBD452C),
+      ),
     );
   }
 }

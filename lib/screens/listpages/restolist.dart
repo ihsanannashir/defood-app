@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:defood/screens/utilities/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:defood/screens/listpages/listmenu.dart';
 
@@ -66,41 +67,141 @@ class _RestoListState extends State<RestoList> {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
                   return new InkWell(
-                    onTap: () {},
-                    child: ListView(
-                      children:
-                          snapshot.data.docs.map((DocumentSnapshot document) {
-                        return new InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MenuList(),
-                                  settings: RouteSettings(
-                                      arguments: document.data()['id_resto']),
-                                ));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              listWidget(
-                                  document.data()['nama_resto'],
-                                  document.data()['genre_resto'],
-                                  document.data()['rating'],
-                                  document.data()['status']),
-                            ],
+                      onTap: () {},
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: GridView(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  );
+                          children: snapshot.data.docs
+                              .map((DocumentSnapshot document) {
+                            return new InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MenuList(),
+                                        settings: RouteSettings(
+                                            arguments:
+                                                document.data()['id_resto']),
+                                      ));
+                                },
+                                child: restoItems(
+                                    document.data()['nama_resto'],
+                                    document.data()['genre_resto'],
+                                    document.data()['gambar_resto'],
+                                    document.data()['rating'],
+                                    document.data()['status']));
+                          }).toList(),
+                        ),
+                      ));
                 }),
           ),
         )
       ]),
+    );
+  }
+
+  Widget restoItems(nama, genre, gambar, rating, status) {
+    return Stack(
+      alignment: Alignment.bottomLeft,
+      children: [
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: ClipPath(
+              child: Container(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints.expand(),
+                    child: Image.network(
+                      '$gambar',
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            color: Colors.transparent,
+            child: ClipPath(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFFBD452C).withOpacity(0.4),
+                    ),
+                  ),
+                ),
+              ),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 55),
+          child: Text('$nama',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              )),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 40),
+          child: Text(genre[0] + ', ' + genre[1],
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              )),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+          child: Row(
+            children: [
+              Icon(
+                Icons.star,
+                size: 20,
+                color: Colors.white,
+              ),
+              new Container(
+                width: 3.0,
+                height: 0,
+              ),
+              Text(rating.toString(),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  )),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -140,7 +241,7 @@ class _RestoListState extends State<RestoList> {
     );
   }
 
-  Widget listWidget(nama, genre, rating, status) {
+  Widget listWidget(nama, genre, gambar, rating, status) {
     return new Container(
         height: 120.0,
         margin: const EdgeInsets.symmetric(
@@ -224,16 +325,6 @@ class _RestoListState extends State<RestoList> {
               new Container(width: 8.0),
               new Text(
                 rating.toString(),
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  color: Colors.white,
-                  fontSize: 12.0,
-                ),
-              ),
-              new Container(width: 24.0),
-              new Container(width: 12.0),
-              new Text(
-                status ? "Buka" : "Tutup",
                 style: TextStyle(
                   fontFamily: 'Inter',
                   color: Colors.white,

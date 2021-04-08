@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:defood/screens/models/cart_items.dart';
+import 'package:defood/screens/models/orders.dart';
+import 'package:defood/screens/utilities/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -215,7 +219,9 @@ class _MenuListState extends State<MenuList> {
                                   detailMenu(
                                       document.data()['nama_makanan'],
                                       document.data()['harga_makanan'],
-                                      document.data()['gambar_makanan']);
+                                      document.data()['gambar_makanan'],
+                                      document.data()['id_makanan'],
+                                      id);
                                 },
                                 child: menuItems(
                                     document.data()['nama_makanan'],
@@ -380,7 +386,7 @@ class _MenuListState extends State<MenuList> {
     );
   }
 
-  Future<void> detailMenu(nama, harga, gambar) async {
+  Future<void> detailMenu(nama, harga, gambar, idMakanan, idResto) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -420,7 +426,7 @@ class _MenuListState extends State<MenuList> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: 10,
+                      vertical: 5,
                     ),
                     child: Align(
                       alignment: Alignment.topLeft,
@@ -429,6 +435,23 @@ class _MenuListState extends State<MenuList> {
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 0,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Rp ' + harga.toString(),
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
                             color: Colors.white,
                             fontWeight: FontWeight.w600),
                       ),
@@ -517,6 +540,13 @@ class _MenuListState extends State<MenuList> {
                                   'Quantity is zero. \nItems not added to cart');
                               Navigator.pop(context);
                             } else {
+                              addToCart(
+                                  idMakanan: idMakanan,
+                                  nama: nama,
+                                  gambar: gambar,
+                                  harga: harga,
+                                  quantity: quantity,
+                                  idResto: idResto);
                               _showToast(context,
                                   'Successfully added $quantity $nama to cart!');
                               quantity = 0;
@@ -544,5 +574,30 @@ class _MenuListState extends State<MenuList> {
         backgroundColor: Color(0xFFBD452C),
       ),
     );
+  }
+
+  Future addToCart({idMakanan, nama, gambar, harga, quantity, idResto}) async {
+    // Orders _orders;
+    DefoodServices _services = DefoodServices();
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    var uuid = _auth.currentUser.uid;
+    String cartId = uuid;
+    // List cart = orders.cart;
+
+    Map cartItem = {
+      "id_cart": cartId,
+      "id_makanan": idMakanan,
+      "nama_makanan": nama,
+      "harga_makanan": harga,
+      "quantity": quantity,
+      "id_resto": idResto,
+      "total_harga_item": harga * quantity
+    };
+    print(cartItem.toString());
+    // debugPrint(cart.toString());
+
+    CartItems items = CartItems.fromMap(cartItem);
+    print(items.harga_makanan);
+    _services.addToCart(userId: uuid, cartItem: items);
   }
 }

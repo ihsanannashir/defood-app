@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -16,6 +17,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
   bool _success;
   String _userEmail;
   bool _showCircular = false;
@@ -357,6 +360,12 @@ class _RegisterPageState extends State<RegisterPage> {
     ))
         .user;
     debugPrint(user.email);
+    Future<void> admin = _db.collection('users').doc(user.uid).set({
+      'username': _usernameController.text,
+      'email': user.email,
+      'uid': user.uid,
+      'cart': []
+    });
 
     if (user != null) {
       setState(() {

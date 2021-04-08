@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Sign In',
+                                'Masuk',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Inter',
@@ -338,8 +338,12 @@ class _LoginPageState extends State<LoginPage> {
         _userEmail = user.email;
         debugPrint((_success).toString());
         if (_success) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ScreenControlPage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScreenControlPage(),
+                settings: RouteSettings(arguments: 0),
+              ));
         }
       });
     } else {

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:defood/screens/listpages/restolist.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,6 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   final searchController = TextEditingController();
-  int _page = 0;
-  PageController _pageController =
-      PageController(initialPage: 0, keepPage: true);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,39 +51,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavyBar(
-        iconSize: 26,
-        backgroundColor: Color(0xFFBD452C),
-        containerHeight: MediaQuery.of(context).size.height / 15,
-        selectedIndex: _page,
-        onItemSelected: (index) {
-          setState(() => _page = index);
-          bottomTapped(index);
-        },
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-            title: Text('Beranda'),
-            icon: Icon(Icons.home),
-            activeColor: Colors.white,
-            inactiveColor: Colors.white,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            title: Text('Keranjang'),
-            icon: Icon(Icons.shopping_cart),
-            activeColor: Colors.white,
-            inactiveColor: Colors.white,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            title: Text('Akun'),
-            icon: Icon(Icons.account_circle),
-            activeColor: Colors.white,
-            inactiveColor: Colors.white,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
     );
   }
 
@@ -124,16 +87,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
           onPressed: () {},
         ),
       ],
-    );
-  }
-
-  void bottomTapped(int index) {
-    setState(
-      () {
-        _page = index;
-        _pageController.animateToPage(index,
-            duration: Duration(milliseconds: 500), curve: Curves.linear);
-      },
     );
   }
 

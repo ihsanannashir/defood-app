@@ -12,7 +12,8 @@ class Akun extends StatefulWidget {
 class _AkunState extends State<Akun> {
   final searchController = TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
-  String _timeString, _email, _username;
+  static String _email, _username;
+  String _timeString;
   Timer _timer;
 
   void getCurrentUser() async {

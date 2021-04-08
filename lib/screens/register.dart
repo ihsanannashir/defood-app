@@ -356,6 +356,8 @@ class _RegisterPageState extends State<RegisterPage> {
       password: _passwordController.text,
     ))
         .user;
+    debugPrint(user.email);
+
     if (user != null) {
       setState(() {
         _success = true;
@@ -363,7 +365,7 @@ class _RegisterPageState extends State<RegisterPage> {
       });
     } else {
       setState(() {
-        _success = true;
+        _success = false;
       });
     }
   }

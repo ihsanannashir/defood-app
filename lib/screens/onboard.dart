@@ -177,7 +177,7 @@ class _OnBoardState extends State<OnBoard> {
                   liquidController.animateToPage(
                       page: pages.length - 1, duration: 700);
                 },
-                child: page == pages.length - 1
+                child: page != pages.length - 1
                     ? Text("Skip to End", style: TextStyle(color: Colors.white))
                     : null,
               ),

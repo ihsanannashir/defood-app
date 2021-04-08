@@ -15,6 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   bool _success;
   String _userEmail;
   bool _showCircular = false;
@@ -102,8 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
           decoration: kBoxDecorationStyle,
           height: 40.0,
           child: TextFormField(
-            //controller: _emailController, <- Nanti diganti sama variable username
-            //keyboardType: TextInputType.emailAddress, <- ini juga
+            controller: _usernameController,
             style: TextStyle(
               color: Colors.black54,
               fontFamily: 'Inter',

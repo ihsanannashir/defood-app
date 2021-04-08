@@ -14,6 +14,7 @@ class _AkunState extends State<Akun> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   static String _email, _username;
   String _timeString;
+  Timer _timer;
 
   void getCurrentUser() async {
     User user = await _auth.currentUser;
@@ -24,14 +25,15 @@ class _AkunState extends State<Akun> {
   }
 
   void dispose() {
+    _timer.cancel();
     super.dispose();
   }
-  
+
   void _getDay() {
     final String formattedDateTime = DateFormat('kk').format(DateTime.now());
     setState(() {
       var jam = int.parse(formattedDateTime);
-      if (jam >= 2 && jam < 11 ) {
+      if (jam >= 2 && jam < 11) {
         _timeString = "Pagi";
       } else if (jam >= 11 && jam < 15) {
         _timeString = "Siang";
@@ -47,7 +49,7 @@ class _AkunState extends State<Akun> {
   void initState() {
     super.initState();
     getCurrentUser();
-    Timer.periodic(Duration(seconds: 0), (Timer t) => _getDay());
+    _timer = Timer.periodic(Duration(seconds: 0), (Timer t) => _getDay());
   }
 
   Widget build(BuildContext context) {
@@ -59,25 +61,22 @@ class _AkunState extends State<Akun> {
           children: [
             Stack(
               children: <Widget>[
-                Container (
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 20.0,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        "Halo, Selamat ${_timeString} ${_email}",
-                        style: TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.white,
-                          fontFamily: 'Inter',
-                          )
-                      ),
-                      SizedBox(height: 15.0),
-                    ],
-                  )
-                ),
+                Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 20.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Text("Halo, Selamat ${_timeString} ${_email}",
+                            style: TextStyle(
+                              fontSize: 17.0,
+                              color: Colors.white,
+                              fontFamily: 'Inter',
+                            )),
+                        SizedBox(height: 15.0),
+                      ],
+                    )),
               ],
             ),
           ],

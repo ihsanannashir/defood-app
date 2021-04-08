@@ -1,29 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Resto {
+class Orders {
   static const ID_ORDER = "id_order";
-  static const ID_MAKANAN = "id_makanan";
-  static const QUANTITY = "quantity";
   static const ID_RESTO = "id_resto";
-  static const HARGA = "harga";
+  static const CART = "cart";
+  static const UUID = "uuid";
+  static const TOTAL = "total";
+  static const STATUS = "status";
+  static const CREATED_AT = "createdAt";
 
   String _id_order;
-  String _id_makanan;
-  int _quantity;
   String _id_resto;
-  int _harga;
+  String _uuid;
+  String _status;
+  int _total;
+  int _createdAt;
 
   String get id_order => _id_order;
-  String get id_makanan => _id_makanan;
-  int get quantity => _quantity;
   String get id_resto => _id_resto;
-  int get harga => _harga;
+  String get uuid => _uuid;
+  String get status => _status;
+  int get total => _total;
+  int get createdAt => _createdAt;
 
-  Resto.fromSnapshot(DocumentSnapshot snapshot) {
+  List cart;
+
+  Orders.fromSnapshot(DocumentSnapshot snapshot) {
     _id_order = snapshot.data()[ID_ORDER];
-    _id_makanan = snapshot.data()[ID_MAKANAN];
-    _quantity = snapshot.data()[QUANTITY];
     _id_resto = snapshot.data()[ID_RESTO];
-    _harga = snapshot.data()[HARGA];
+    _uuid = snapshot.data()[UUID];
+    _status = snapshot.data()[STATUS];
+    _total = snapshot.data()[TOTAL];
+    _createdAt = snapshot.data()[CREATED_AT];
+    cart = snapshot.data()[CART];
   }
 }

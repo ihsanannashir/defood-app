@@ -4,7 +4,7 @@ import 'package:defood/screens/models/checkout.dart';
 import 'package:defood/screens/models/orders.dart';
 import 'package:defood/screens/models/resto.dart';
 
-class Services {
+class DefoodServices {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
   //Restaurant List
@@ -22,19 +22,19 @@ class Services {
 
   //User cart
   void addToCart({String userId, CartItems cartItem}) {
-    _db.collection('user').doc(userId).update({
+    _db.collection('users').doc(userId).update({
       'cart': FieldValue.arrayUnion([cartItem.toMap()])
     });
   }
 
   void removeFromCart({String userId, CartItems cartItem}) {
-    _db.collection('user').doc(userId).update({
+    _db.collection('users').doc(userId).update({
       'cart': FieldValue.arrayRemove([cartItem.toMap()])
     });
   }
 
   Future<Checkout> getUserById(String id) =>
-      _db.collection('user').doc(id).get().then((doc) {
+      _db.collection('users').doc(id).get().then((doc) {
         return Checkout.fromSnapshot(doc);
       });
 

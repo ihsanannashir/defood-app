@@ -241,6 +241,103 @@ class _RestoListState extends State<RestoList> {
     );
   }
 
+  Widget listWidget(nama, genre, gambar, rating, status) {
+    return new Container(
+        height: 120.0,
+        margin: const EdgeInsets.symmetric(
+          vertical: 16.0,
+          horizontal: 24.0,
+        ),
+        child: new Stack(
+          children: <Widget>[
+            listCards(),
+            listImage(),
+            cardContent(nama, genre, rating, status),
+          ],
+        ));
+  }
+
+  Widget listImage() {
+    return new Container(
+        margin: new EdgeInsets.symmetric(vertical: 10.0),
+        alignment: FractionalOffset.centerLeft,
+        child: ClipPath(
+          child: new Image(
+              image: new AssetImage("assets/images/food1.png"),
+              fit: BoxFit.cover,
+              height: 120.0,
+              width: 120.0),
+          clipper: ShapeBorderClipper(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0))),
+        ));
+  }
+
+  Widget listCards() {
+    return new Container(
+      height: 130.0,
+      margin: EdgeInsets.only(left: 47.0),
+      decoration: BoxDecoration(
+          color: Color(0xFFBD452C),
+          shape: BoxShape.rectangle,
+          borderRadius: new BorderRadius.circular(8.0),
+          boxShadow: <BoxShadow>[
+            new BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10.0,
+                offset: new Offset(0.0, 10.0)),
+          ]),
+    );
+  }
+
+  Widget cardContent(nama, genre, rating, status) {
+    return new Container(
+      margin: new EdgeInsets.fromLTRB(140.0, 16.0, 16.0, 16.0),
+      constraints: new BoxConstraints.expand(),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Container(height: 4.0),
+          new Text(
+            nama,
+            style: TextStyle(
+                fontFamily: 'Inter',
+                color: Colors.white,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w600),
+          ),
+          new Container(height: 10.0),
+          new Text("Kategori: " + genre[0] + ", " + genre[1],
+              style: TextStyle(
+                  fontFamily: 'Inter', color: Colors.white, fontSize: 12.0)),
+          new Container(
+              margin: new EdgeInsets.symmetric(vertical: 8.0),
+              height: 2.0,
+              width: 18.0,
+              color: Colors.white),
+          new Row(
+            children: <Widget>[
+              new Icon(
+                Icons.star_outline_rounded,
+                size: 16.0,
+                color: Colors.white,
+              ),
+              new Container(width: 8.0),
+              new Text(
+                rating.toString(),
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  color: Colors.white,
+                  fontSize: 12.0,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget searchView() {
     return Row(
       children: <Widget>[

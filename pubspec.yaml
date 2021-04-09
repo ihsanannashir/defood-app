@@ -33,6 +33,8 @@ dependencies:
   lottie: ^1.0.1
   carousel_slider: ^3.0.0
   bottom_navy_bar: ^5.6.0
+  styled_text: ^1.0.3
+  intl: ^0.17.0
 
   # Firebase
   firebase_analytics: ^5.0.2
@@ -91,6 +93,9 @@ flutter:
     - assets/images/categories/pizza.png
     - assets/images/categories/rice.png
     - assets/images/categories/snacks.png
+    - assets/images/bike.png
+    - assets/images/takeout.png
+    - assets/images/logo1.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

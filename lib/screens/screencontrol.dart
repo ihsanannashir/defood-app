@@ -18,13 +18,13 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: _onBackPressed,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
             title: Text("De-FOOD",
                 style: TextStyle(
-                    fontFamily: 'OpenSans', fontWeight: FontWeight.w600)),
+                    fontFamily: 'Inter', fontWeight: FontWeight.w600)),
             backgroundColor: Color(0xFFBD452C),
             elevation: 0,
             leading: IconButton(
@@ -127,5 +127,27 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
       },
       children: <Widget>[Beranda(), Keranjang(), Akun()],
     );
+  }
+
+  Future<bool> _onBackPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              new GestureDetector(
+                onTap: () => Navigator.of(context).pop(false),
+                child: Text("NO"),
+              ),
+              SizedBox(height: 16),
+              new GestureDetector(
+                onTap: () => Navigator.of(context).pop(true),
+                child: Text("YES"),
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
 }

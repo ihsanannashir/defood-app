@@ -19,7 +19,6 @@ class DefoodServices {
         }
         return restoList;
       });
-
   //User cart
   void addToCart({String userId, CartItems cartItem}) {
     _db.collection('users').doc(userId).update({

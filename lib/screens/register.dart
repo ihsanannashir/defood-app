@@ -17,6 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _fullnameController = TextEditingController();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   bool _success;
@@ -64,6 +65,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                               SizedBox(height: 20.0),
+                              _fullnameInp(),
+                              SizedBox(height: 5.0),
                               _usernameInp(),
                               SizedBox(height: 5.0),
                               _emailInp(),
@@ -95,7 +98,6 @@ class _RegisterPageState extends State<RegisterPage> {
             )));
   }
 
-  //INI MASIH BELUM BISA DIPAKE
   Widget _usernameInp() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +120,44 @@ class _RegisterPageState extends State<RegisterPage> {
                 Icons.person,
                 color: Colors.black,
               ),
-              hintText: 'Nama Pengguna...',
+              hintText: 'Nama Pengguna',
+              hintStyle: kHintTextStyle,
+            ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _fullnameInp() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.center,
+          decoration: kBoxDecorationStyle,
+          height: 40.0,
+          child: TextFormField(
+            controller: _fullnameController,
+            style: TextStyle(
+              color: Colors.black54,
+              fontFamily: 'Inter',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 7.0),
+              prefixIcon: Icon(
+                Icons.person,
+                color: Colors.black,
+              ),
+              hintText: 'Nama Lengkap',
               hintStyle: kHintTextStyle,
             ),
             validator: (String value) {
@@ -156,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Icons.email,
                 color: Colors.black,
               ),
-              hintText: 'Email Pengguna...',
+              hintText: 'Email Pengguna',
               hintStyle: kHintTextStyle,
             ),
             validator: (String value) {
@@ -204,7 +243,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
                 color: Color(0xFFBD452C),
               ),
-              hintText: 'Kata Sandi...',
+              hintText: 'Kata Sandi',
               hintStyle: kHintTextStyle,
             ),
             validator: (String value) {
@@ -364,7 +403,9 @@ class _RegisterPageState extends State<RegisterPage> {
       'username': _usernameController.text,
       'email': user.email,
       'uid': user.uid,
-      'cart': []
+      'orders': [],
+      'cart': [],
+      'fullname': _fullnameController.text,
     });
 
     if (user != null) {

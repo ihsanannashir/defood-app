@@ -45,24 +45,10 @@ class _SplashScreenState extends State<SplashScreen>
               child: Stack(
                 children: [
                   Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        new Icon(
-                          Icons.directions_bike,
-                          size: MediaQuery.of(context).size.width / 3,
-                          color: Colors.white,
-                        ),
-                        new Material(
-                            color: Colors.transparent,
-                            child: Center(
-                                child: Text('AppName',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24.0,
-                                        color: Colors.white))))
-                      ],
+                    child: Image(
+                      image: AssetImage('assets/images/logo1.png'),
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ],

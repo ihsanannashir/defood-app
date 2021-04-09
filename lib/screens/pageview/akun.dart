@@ -15,7 +15,7 @@ class _AkunState extends State<Akun> {
   final searchController = TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  static String _email, _username, _fullname;
+  static String _email = "user", _username = "user", _fullname = "user";
   String _timeString;
   Timer _timer;
 
@@ -42,7 +42,7 @@ class _AkunState extends State<Akun> {
         _timeString = "Siang";
       } else if (jam >= 15 && jam < 18) {
         _timeString = "Sore";
-      } else if (jam >= 18 && jam < 2) {
+      } else {
         _timeString = "Malam";
       }
     });
@@ -50,7 +50,7 @@ class _AkunState extends State<Akun> {
 
   void getUserName() {
     var firebaseUser = _auth.currentUser;
-    _db.collection("users").doc(firebaseUser.uid).get().then((value){
+    _db.collection("users").doc(firebaseUser.uid).get().then((value) {
       //TEST DEBUG
       print(value.data()["username"]);
       print(value.data()["fullname"]);
@@ -89,8 +89,7 @@ class _AkunState extends State<Akun> {
                               fontSize: 17.0,
                               color: Colors.white,
                               fontFamily: 'Inter',
-                            )
-                        ),
+                            )),
                         SizedBox(height: 15.0),
                         _thumb(),
                         SizedBox(height: 20.0),
@@ -173,16 +172,18 @@ class _AkunState extends State<Akun> {
           size: 70.0,
         ),
         StyledText(
-          text: '<white><bold><big>${_username}</big></bold><br/><small>Pengguna</small></white>',
+          text:
+              '<white><bold><big>${_username}</big></bold><br/><small>Pengguna</small></white>',
           styles: {
             'bold': TextStyle(fontWeight: FontWeight.bold),
             'white': TextStyle(color: Colors.white),
-            'big': TextStyle(fontSize: 30.0,),
+            'big': TextStyle(
+              fontSize: 30.0,
+            ),
             'small': TextStyle(fontSize: 20.0),
           },
         )
       ],
     );
   }
-
 }

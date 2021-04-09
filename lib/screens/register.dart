@@ -403,6 +403,7 @@ class _RegisterPageState extends State<RegisterPage> {
       'username': _usernameController.text,
       'email': user.email,
       'uid': user.uid,
+      'orders': [],
       'cart': [],
       'fullname': _fullnameController.text,
     });

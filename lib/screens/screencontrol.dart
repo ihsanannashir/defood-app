@@ -24,7 +24,7 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
         appBar: AppBar(
             title: Text("De-FOOD",
                 style: TextStyle(
-                    fontFamily: 'OpenSans', fontWeight: FontWeight.w600)),
+                    fontFamily: 'Inter', fontWeight: FontWeight.w600)),
             backgroundColor: Color(0xFFBD452C),
             elevation: 0,
             leading: IconButton(

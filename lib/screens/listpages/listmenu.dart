@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:defood/screens/models/cart_items.dart';
+import 'package:defood/screens/models/checkout.dart';
 import 'package:defood/screens/models/orders.dart';
 import 'package:defood/screens/utilities/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -577,12 +578,12 @@ class _MenuListState extends State<MenuList> {
   }
 
   Future addToCart({idMakanan, nama, gambar, harga, quantity, idResto}) async {
-    // Orders _orders;
+    CartItems _cartItems;
     DefoodServices _services = DefoodServices();
     FirebaseAuth _auth = FirebaseAuth.instance;
     var uuid = _auth.currentUser.uid;
     String cartId = uuid;
-    // List cart = orders.cart;
+    List cart = [];
 
     Map cartItem = {
       "id_cart": cartId,
@@ -593,10 +594,12 @@ class _MenuListState extends State<MenuList> {
       "id_resto": idResto,
       "total_harga_item": harga * quantity
     };
-    print(cartItem.toString());
-    // debugPrint(cart.toString());
 
     CartItems items = CartItems.fromMap(cartItem);
+    cart.add(items.toMap());
+
+    print(cart.asMap().toString());
+
     print(items.harga_makanan);
     _services.addToCart(userId: uuid, cartItem: items);
   }

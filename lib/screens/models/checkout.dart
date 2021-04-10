@@ -21,7 +21,7 @@ class Checkout {
   Checkout.fromSnapshot(DocumentSnapshot snapshot) {
     _uuid = snapshot.data()[UUID];
     _name = snapshot.data()[NAME];
-    cart = _convertCartItems(snapshot.data()[CART]) ?? [];
+    cart = convertCartItems(snapshot.data()[CART]) ?? [];
     totalPrice = snapshot.data()[CART] == null
         ? 0
         : getTotalPrice(cart: snapshot.data()[CART]);
@@ -37,11 +37,12 @@ class Checkout {
     return total;
   }
 
-  List<CartItems> _convertCartItems(List cart) {
+  List<CartItems> convertCartItems(List cart) {
     List<CartItems> convertedCart = [];
     for (Map cartItem in cart) {
       convertedCart.add(CartItems.fromMap(cartItem));
     }
+    print(convertedCart);
     return convertedCart;
   }
 }

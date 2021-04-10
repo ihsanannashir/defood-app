@@ -1,3 +1,4 @@
+import 'package:defood/screens/screencontrol.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _MethodPesanState extends State<MethodPesan> {
   bool _selectedAntar = true;
   String antar;
   DateTime selectedDate = DateTime.now();
-  int _selectedJadwal;
+  int _selectedJadwal = 1;
   String jam;
 
   @override
@@ -25,12 +26,11 @@ class _MethodPesanState extends State<MethodPesan> {
     return Scaffold(
       backgroundColor: Color(0xFFBD452C),
       appBar: AppBar(
-          title: Text("Metode Pesanan",
-              style:
-                  TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w600)),
-          backgroundColor: Color(0xFFBD452C),
-          elevation: 0,
-          automaticallyImplyLeading: true),
+        title: Text("Metode Pesanan",
+            style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w600)),
+        backgroundColor: Color(0xFFBD452C),
+        elevation: 0,
+      ),
       body: Stack(
         children: <Widget>[
           buildPageView(),
@@ -42,9 +42,14 @@ class _MethodPesanState extends State<MethodPesan> {
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: TextButton(
                   onPressed: () {
-                    _pageController.animateToPage(_page += 1,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.linear);
+                    antar == "Express"
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ScreenControlPage()))
+                        : _pageController.animateToPage(_page += 1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.linear);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -79,6 +84,53 @@ class _MethodPesanState extends State<MethodPesan> {
               ),
             ),
           ),
+          if (_page != 0)
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: TextButton(
+                    onPressed: () {
+                      _pageController.animateToPage(_page -= 1,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.linear);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          CupertinoIcons.arrow_left_circle_fill,
+                          size: 24,
+                          color: Color(0xFFBD452C),
+                        ),
+                        Container(
+                          width: 10,
+                          height: 0,
+                        ),
+                        Text('BACK',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFFBD452C),
+                            )),
+                      ],
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ))),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

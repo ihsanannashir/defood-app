@@ -21,9 +21,59 @@ class DefoodServices {
       });
   //User cart
   void addToCart({String userId, CartItems cartItem}) {
-    _db.collection('users').doc(userId).update({
-      'cart': FieldValue.arrayUnion([cartItem.toMap()])
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('cart')
+        .doc(cartItem.id_makanan)
+        .get()
+        .then((snapshot) {
+      if (snapshot.exists) {
+        _db
+            .collection('users')
+            .doc(userId)
+            .collection('cart')
+            .doc(cartItem.id_makanan)
+            .get()
+            .then((snapshot) {
+          List old = [
+            snapshot.data()['quantity'],
+            snapshot.data()['total_harga_item']
+          ];
+          print(old.toString());
+          if (snapshot.data()['id_makanan'] == cartItem.id_makanan) {
+            _db
+                .collection('users')
+                .doc(userId)
+                .collection('cart')
+                .doc(cartItem.id_makanan)
+                .update({
+              'quantity': old[0] + cartItem.quantity,
+              'total_harga_item': old[1] + cartItem.totalHargaItem
+            });
+          }
+        });
+      } else {
+        _db
+            .collection('users')
+            .doc(userId)
+            .collection('cart')
+            .doc(cartItem.id_makanan)
+            .set({
+          'harga_makanan': cartItem.harga_makanan,
+          'id_cart': cartItem.id_cart,
+          'id_makanan': cartItem.id_makanan,
+          'id_resto': cartItem.id_resto,
+          'nama_makanan': cartItem.nama_makanan,
+          'quantity': cartItem.quantity,
+          'total_harga_item': cartItem.totalHargaItem
+        });
+      }
     });
+
+    // _db.collection('users').doc(userId).update({
+    //   'cart': FieldValue.arrayUnion([cartItem.toMap()])
+    // });
   }
 
   void removeFromCart({String userId, CartItems cartItem}) {

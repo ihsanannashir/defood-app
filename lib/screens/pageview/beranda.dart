@@ -1,4 +1,3 @@
-import 'package:defood/screens/order_screens/methodpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -168,7 +167,7 @@ class _BerandaState extends State<Beranda> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MethodPesan()));
+                              builder: (context) => CategoriesPage()));
                     }),
               ],
             ),

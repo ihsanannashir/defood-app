@@ -3,6 +3,7 @@ import 'package:defood/screens/pageview/akun.dart';
 import 'package:defood/screens/pageview/beranda.dart';
 import 'package:defood/screens/pageview/keranjang.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ScreenControlPage extends StatefulWidget {
   @override
@@ -133,18 +134,34 @@ class _ScreenControlPageState extends State<ScreenControlPage> {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit an App'),
+            title: new Text(
+              'Are you sure?',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Color(0xFFBD452C),
+            content: new Text('Do you want to exit an App',
+                style: TextStyle(color: Colors.white)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            actionsPadding: EdgeInsets.all(10),
             actions: <Widget>[
               new GestureDetector(
+                onTap: () => SystemNavigator.pop(),
+                child: Text("YES",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                width: 20,
+                height: 0,
+              ),
+              new GestureDetector(
                 onTap: () => Navigator.of(context).pop(false),
-                child: Text("NO"),
+                child: Text("NO",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 16),
-              new GestureDetector(
-                onTap: () => Navigator.of(context).pop(true),
-                child: Text("YES"),
-              ),
             ],
           ),
         ) ??

@@ -338,12 +338,8 @@ class _LoginPageState extends State<LoginPage> {
         _userEmail = user.email;
         debugPrint((_success).toString());
         if (_success) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ScreenControlPage(),
-                settings: RouteSettings(arguments: 0),
-              ));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ScreenControlPage()));
         }
       });
     } else {
